@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace very_creative_project_name.Content.Map
 {
     class Display
     {
+        #region General Map UI (Non-dynamic fields)
+        //Sets out of bounds locations with fillChar
         public void EmptySpace()
         {
             string fillChar = "░";
-            for (int i = 0; i < Console.WindowHeight; i++)
+            for (int i = 0; i < Console.WindowHeight - 5; i++)
             {
                 string line = string.Empty;
                 for (int ii = 0; ii < Console.WindowWidth; ii++)
@@ -18,9 +18,23 @@ namespace very_creative_project_name.Content.Map
                 }
                 Console.SetCursorPosition(0, i);
                 Console.Write(line);
+                Border();
             }
         }
+        
+        //Creates border at bottom of the map to separate for text UI.
+        public void Border()
+        {
+            int borderLine = Console.WindowHeight - 5;
+            Console.SetCursorPosition(0, borderLine);
+            for (int i = 0; i < Console.WindowWidth; i++)
+            {
+                Console.Write('▀');
+            }
+        }
+        #endregion
 
+        #region Map UI that require input
         public void DrawRectangle(Rectangle rect)
         {
             Console.SetCursorPosition(rect.X, rect.Y);
@@ -34,5 +48,6 @@ namespace very_creative_project_name.Content.Map
                 }
             }
         }
+        #endregion
     }
 }

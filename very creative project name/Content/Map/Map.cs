@@ -6,6 +6,7 @@ namespace very_creative_project_name.Content.Map
     class Map
     {
         public static Display disp = new Display();
+        public static RoomConnector connect = new RoomConnector();
 
         #region Seed Generation
         //Create random seed from tick time and multiplier
@@ -36,20 +37,17 @@ namespace very_creative_project_name.Content.Map
         }
         #endregion
 
-        #region Room Information Generation
+        #region Room Information/Generation
         public struct Room
         {
             public const int minSize = 5;
             public const int maxSize = 11;
-
 
             public int rooms { get; set; }
             public int x { get; set; }
             public int y { get; set; }
             public int width { get; set; }
             public int height { get; set; }
-            public Rectangle rect { get; set; }
-
 
             public void Generate()
             {
@@ -66,21 +64,29 @@ namespace very_creative_project_name.Content.Map
                     if (splitSeed[5] == 0) { rooms = 9; }
                 }
 
-                //Fill window with empty space character
+                //Fill window with empty space characters
                 disp.EmptySpace();
 
-
+                //List to store rooms
+                List<Rectangle> roomStorage = new List<Rectangle>();
                 for (int i = 0; i < rooms; i++)
                 {
                     //Generate room size and position
                     width = random.Next(minSize, maxSize);
                     height = random.Next(minSize, maxSize);
-                    x = random.Next(0, Console.WindowWidth - width - 1);
-                    y = random.Next(0, Console.WindowHeight - height - 1);
+                    //Random takes away size of room, -6 to allow for bottom of the screen
+                    x = random.Next(1, Console.WindowWidth - width - 6);
+                    y = random.Next(1, Console.WindowHeight - height - 6);
 
-                    //Fills locations generated with empty chars
-                    rect = new Rectangle(x, y, width, height);
-                    disp.DrawRectangle(rect);
+                    //Add room info to list
+                    roomStorage.Add(new Rectangle(x, y, width, height));
+                }
+
+                //Use list for various stuff
+                for (int i = 0; i < roomStorage.Count; i++)
+                {
+                    //Displays rooms on console
+                    disp.DrawRectangle(roomStorage[i]);
                 }
                 Console.ReadLine();
             }

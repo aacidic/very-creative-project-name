@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace very_creative_project_name.Content.Text
 {
     class ConsoleEdits

@@ -6,9 +6,4 @@
     <RootNamespace>very_creative_project_name</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Content\Player\" />
-    <Folder Include="Content\Saves\" />
-  </ItemGroup>
-
 </Project>
