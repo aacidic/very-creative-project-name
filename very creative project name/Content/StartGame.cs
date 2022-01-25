@@ -9,12 +9,16 @@ namespace TextProject
         static void Main(string[] args)
         {
             ConsoleEdits edit = new ConsoleEdits();
-            Console.Clear();
-
             edit.Title("title");
             edit.Colour("Blue");
 
+            Console.WriteLine("When you press ENTER, your window will be resized to the recommended size before continuing.");
             Console.ReadLine();
+
+            //Clear console and resize window
+            Console.CursorVisible = false;
+            Console.SetWindowSize(120, 30);
+            Console.Clear();
             Map.Seed();
         }
     }

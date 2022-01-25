@@ -6,5 +6,8 @@ namespace very_creative_project_name.Content.Player
 {
     class Movement
     {
+        public static int[] pos = new int[1];
+
+
     }
 }
