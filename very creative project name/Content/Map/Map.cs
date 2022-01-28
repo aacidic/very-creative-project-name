@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using TextProject;
 
 namespace very_creative_project_name.Content.Map
 {
     class Map
     {
-        public static Display disp = new Display();
-        public static RoomConnector connect = new RoomConnector();
-
         #region Seed Generation
         //Create random seed from tick time and multiplier
         public static Random random = new Random();
@@ -52,7 +50,7 @@ namespace very_creative_project_name.Content.Map
             public int y { get; set; }
             public int width { get; set; }
             public int height { get; set; }
-            public bool overlap { get; set; }
+            public bool regenerate { get; set; }
 
             public void Generate()
             {
@@ -65,47 +63,51 @@ namespace very_creative_project_name.Content.Map
                 }
 
                 //Fill window with empty space characters
-                disp.EmptySpace();
+                StartGame.disp.EmptySpace();
 
                 //List to store rooms
                 List<Rectangle> roomStorage = new List<Rectangle>();
                 for (int i = 0; i < rooms; i++)
                 {
-                    do //condition: while (overlap)
+                    regenerate = false;
+
+                    //----> if time, try to find out how to use seed to do this instead of random number!
+                    //Generate room size and position
+                    width = random.Next(minSize, maxSize);
+                    height = random.Next(minSize, maxSize);
+                    //Random - takes away size of room and -6 to allow for bottom of the screen
+                    x = random.Next(1, Console.WindowWidth - width - 6);
+                    y = random.Next(1, Console.WindowHeight - height - 6);
+
+                    if (i > 0)
                     {
-                        //Generate room size and position
-                        width = random.Next(minSize, maxSize);
-                        height = random.Next(minSize, maxSize);
-
-                        //Random - takes away size of room and -6 to allow for bottom of the screen
-                        x = random.Next(1, Console.WindowWidth - width - 6);
-                        y = random.Next(1, Console.WindowHeight - height - 6);
-
-                        if (i > 0)
+                        foreach (Rectangle rectItem in roomStorage)
                         {
-                            List<Rectangle> rect = new List<Rectangle>();
-                            rect.AddRange(roomStorage);
-                            for (int ii = 0; i < rect.Count; i++)
+                            if (isOverlapping(x, y, x + width, y + height, rectItem.X, rectItem.Y, rectItem.X + rectItem.width, rectItem.Y + rectItem.height))
                             {
-                                overlap = isOverlapping(x, y, x + width, y + height, rect.X, rect.Y, rect.X + rect.width, rect.Y + rect.height);
+                                regenerate = true;
                             }
-
-                            //Console.WriteLine("{0},{1},{2},{3} ||||| {4},{5},{6},{7}", x, y, x + width, y + height, rect.X, rect.Y, rect.X + rect.width, rect.Y + rect.height);
-                            //Console.WriteLine(overlap);
                         }
-
-                    } while (overlap);
-
-                    //Add room info to list
-                    roomStorage.Add(new Rectangle(x, y, width, height));
-
+                        if (regenerate) { i -= 1; }
+                        else
+                        {
+                            //Add room info to list
+                            roomStorage.Add(new Rectangle(x, y, width, height));
+                        }
+                    }
+                    //Only used for first rectangle
+                    else if (i == 0)
+                    {
+                        roomStorage.Add(new Rectangle(x, y, width, height));
+                    }
+                    
                 }
 
                 //Use list for various stuff
                 for (int i = 0; i < roomStorage.Count; i++)
                 {
                     //Displays rooms on console
-                    disp.DrawRectangle(roomStorage[i]);
+                    StartGame.disp.DrawRectangle(roomStorage[i]);
                 }
                 Console.SetCursorPosition(0,26);
                 Console.ReadLine();

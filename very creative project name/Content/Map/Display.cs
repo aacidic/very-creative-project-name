@@ -4,7 +4,7 @@ namespace very_creative_project_name.Content.Map
 {
     class Display
     {
-        #region General Map UI (Non-dynamic fields)
+        #region General UI (Non-dynamic fields)
         //Sets out of bounds locations with fillChar
         public void EmptySpace()
         {
@@ -34,7 +34,7 @@ namespace very_creative_project_name.Content.Map
         }
         #endregion
 
-        #region Map UI that require input
+        #region UI with input
         public void DrawRectangle(Rectangle rect)
         {
             Console.SetCursorPosition(rect.X, rect.Y);
@@ -47,6 +47,12 @@ namespace very_creative_project_name.Content.Map
                     Console.Write(' ');
                 }
             }
+        }
+
+        public void DrawPlayer(int x, int y)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write("X");
         }
         #endregion
     }

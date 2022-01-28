@@ -12,6 +12,7 @@ namespace very_creative_project_name.Content.Map
         public int height { get; set; }
         public int centerX { get { return X + (width / 2); } }
         public int centerY { get { return Y + (height / 2); } }
+        
 
         public Rectangle(int x, int y, int wid, int hei)
         {
