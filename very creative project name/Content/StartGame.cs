@@ -7,7 +7,6 @@ namespace TextProject
     class StartGame
     {
         public static Display disp = new Display();
-        public static RoomConnector connect = new RoomConnector();
 
         static void Main(string[] args)
         {      

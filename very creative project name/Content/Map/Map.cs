@@ -10,10 +10,10 @@ namespace very_creative_project_name.Content.Map
         //Create random seed from tick time and multiplier
         public static Random random = new Random();
         public static int seed { get; set; }
-        static char[] charSplitSeed { get; set; }
         static int[] splitSeed { get; set; }
         public static void Seed()
         {
+            char[] charSplitSeed;
             seed = (int)DateTime.UtcNow.Ticks;
             float seedRandomizer = random.Next(-4, 4);
             //Failsafe for if below tries to divide by 0 and explode everything
@@ -33,7 +33,6 @@ namespace very_creative_project_name.Content.Map
             {
                 int.TryParse(charSplitSeed[i].ToString(), out splitSeed[i]);
             }
-            Console.WriteLine(seed);
             Room room = new Room();
             room.Generate();
         }
@@ -62,43 +61,54 @@ namespace very_creative_project_name.Content.Map
                     if (splitSeed[5] == 0) { rooms = 9; }
                 }
 
-                //Fill window with empty space characters
+                //Fill window with empty space characters before room generation
                 StartGame.disp.EmptySpace();
 
                 //List to store rooms
                 List<Rectangle> roomStorage = new List<Rectangle>();
+                Coordinate currentRect = new Coordinate(0,0,0,0);
+                List<Coordinate> priorRect = new List<Coordinate>();
+
                 for (int i = 0; i < rooms; i++)
                 {
                     regenerate = false;
 
-                    //----> if time, try to find out how to use seed to do this instead of random number!
+                    //----> if time, try to find out how to use seed to do this instead of random number! perlin
                     //Generate room size and position
                     width = random.Next(minSize, maxSize);
                     height = random.Next(minSize, maxSize);
                     //Random - takes away size of room and -6 to allow for bottom of the screen
                     x = random.Next(1, Console.WindowWidth - width - 6);
                     y = random.Next(1, Console.WindowHeight - height - 6);
+                    //Sets current rectangle coordinate
+                    (currentRect.tlX, currentRect.tlY, currentRect.brX, currentRect.brY) = (x, y, x + width, y + height);
 
                     if (i > 0)
                     {
-                        foreach (Rectangle rectItem in roomStorage)
+                        //Checks each rectangle stored so far to compare for overlap prevention
+                        foreach (Coordinate rect in priorRect)
                         {
-                            if (isOverlapping(x, y, x + width, y + height, rectItem.X, rectItem.Y, rectItem.X + rectItem.width, rectItem.Y + rectItem.height))
+                            bool overlap = isOverlapping(currentRect, rect);
+                            if (overlap)
                             {
                                 regenerate = true;
                             }
                         }
+
+                        //Makes the for loop go an extra iteration if overlap is found
                         if (regenerate) { i -= 1; }
+                        //Add room info to list
                         else
                         {
-                            //Add room info to list
                             roomStorage.Add(new Rectangle(x, y, width, height));
+                            priorRect.Add(new Coordinate(x, y, x + width, y + height));
                         }
                     }
-                    //Only used for first rectangle
+                    //Only used for first rectangle to skip checks for above
                     else if (i == 0)
                     {
                         roomStorage.Add(new Rectangle(x, y, width, height));
+                        priorRect.Add(currentRect);
                     }
                     
                 }
@@ -107,20 +117,21 @@ namespace very_creative_project_name.Content.Map
                 for (int i = 0; i < roomStorage.Count; i++)
                 {
                     //Displays rooms on console
-                    StartGame.disp.DrawRectangle(roomStorage[i]);
+                    StartGame.disp.DrawRectangle(roomStorage[i], i);
                 }
                 Console.SetCursorPosition(0,26);
                 Console.ReadLine();
 
             }
 
-            public bool isOverlapping(int topX1, int topY1, int botX1, int botY1, int topX2, int topY2, int botX2, int botY2)
+            //Overlap check - checks if rectangles are overlapping by checking corner positions
+            public bool isOverlapping(Coordinate currentRect, Coordinate priorRect)
             {
-                if (topX1 >= botX2 || topX2 >= botX1)
+                if (currentRect.tlX >= priorRect.brX || priorRect.tlX >= currentRect.brX)
                 {
                     return false;
                 }
-                if (botY1 >= topY2 || botY2 >= topY1)
+                if (currentRect.brY >= priorRect.tlY || priorRect.brY >= currentRect.tlY)
                 {
                     return false;
                 }

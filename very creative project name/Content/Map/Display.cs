@@ -22,7 +22,7 @@ namespace very_creative_project_name.Content.Map
             }
         }
         
-        //Creates border at bottom of the map to separate for text UI.
+        //Creates border at bottom of the map to separate for text UI
         public void Border()
         {
             int borderLine = Console.WindowHeight - 5;
@@ -35,16 +35,20 @@ namespace very_creative_project_name.Content.Map
         #endregion
 
         #region UI with input
-        public void DrawRectangle(Rectangle rect)
+        //Draws a room as an empty character/space
+        public void DrawRectangle(Rectangle rect, int a)
         {
             Console.SetCursorPosition(rect.X, rect.Y);
-
+            ConsoleColor[] colours = (ConsoleColor[])Enum.GetValues(typeof(ConsoleColor));
+            Console.ForegroundColor = colours[a];
+            
             for (int i = rect.Y; i < rect.Y + rect.height; i++)
             {
                 for (int ii = rect.X; ii < rect.X + rect.width; ii++)
                 {
                     Console.SetCursorPosition(ii, i);
-                    Console.Write(' ');
+                    //Set back to empty char after overlap issue fixed!!
+                    Console.Write('#');
                 }
             }
         }

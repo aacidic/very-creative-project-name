@@ -22,4 +22,18 @@ namespace very_creative_project_name.Content.Map
             height = hei;
         }
     }
+
+    class Coordinate
+    {
+        //TL = Top Left, BR = Bottom Right
+        public int tlX, tlY, brX, brY;
+
+        public Coordinate(int x, int y, int x2, int y2)
+        {
+            tlX = x;
+            tlY = y;
+            brX = x2;
+            tlY = y2;
+        }
+    }
 }

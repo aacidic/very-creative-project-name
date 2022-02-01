@@ -9,11 +9,10 @@ namespace very_creative_project_name.Content.Player
         public string[] movementKeys = new string[] { "W", "A", "S", "D" };
         public void Choice()
         {
-            
             ConsoleKeyInfo keyPressed = Console.ReadKey();
             if (Array.Exists(movementKeys, key => key == keyPressed.Key.ToString()));
             {
-                MovePlayer(keyPressed);
+                MovePlayer move = new MovePlayer(keyPressed);
             }
         }
     }
