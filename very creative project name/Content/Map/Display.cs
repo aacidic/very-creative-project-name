@@ -42,9 +42,9 @@ namespace very_creative_project_name.Content.Map
             ConsoleColor[] colours = (ConsoleColor[])Enum.GetValues(typeof(ConsoleColor));
             Console.ForegroundColor = colours[a];
             
-            for (int i = rect.Y; i < rect.Y + rect.height; i++)
+            for (int i = rect.Y; i < rect.Y + rect.Height; i++)
             {
-                for (int ii = rect.X; ii < rect.X + rect.width; ii++)
+                for (int ii = rect.X; ii < rect.X + rect.Width; ii++)
                 {
                     Console.SetCursorPosition(ii, i);
                     //Set back to empty char after overlap issue fixed!!

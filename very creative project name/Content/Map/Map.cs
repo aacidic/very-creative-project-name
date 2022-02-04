@@ -43,7 +43,6 @@ namespace very_creative_project_name.Content.Map
         {
             public const int minSize = 5;
             public const int maxSize = 13;
-
             public int rooms { get; set; }
             public int x { get; set; }
             public int y { get; set; }
@@ -89,7 +88,7 @@ namespace very_creative_project_name.Content.Map
                         foreach (Coordinate rect in priorRect)
                         {
                             bool overlap = isOverlapping(currentRect, rect);
-                            if (overlap)
+                            if (overlap == true)
                             {
                                 regenerate = true;
                             }
@@ -119,6 +118,7 @@ namespace very_creative_project_name.Content.Map
                     //Displays rooms on console
                     StartGame.disp.DrawRectangle(roomStorage[i], i);
                 }
+                //After rectangles drawn set cursor pos to empty space
                 Console.SetCursorPosition(0,26);
                 Console.ReadLine();
 
@@ -127,11 +127,11 @@ namespace very_creative_project_name.Content.Map
             //Overlap check - checks if rectangles are overlapping by checking corner positions
             public bool isOverlapping(Coordinate currentRect, Coordinate priorRect)
             {
-                if (currentRect.tlX >= priorRect.brX || priorRect.tlX >= currentRect.brX)
+                if (currentRect.tlX < priorRect.brX || priorRect.tlX < currentRect.brX)
                 {
                     return false;
                 }
-                if (currentRect.brY >= priorRect.tlY || priorRect.brY >= currentRect.tlY)
+                if (currentRect.tlY < priorRect.brY || priorRect.tlY < currentRect.brY)
                 {
                     return false;
                 }
