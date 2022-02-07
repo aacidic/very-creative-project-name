@@ -36,19 +36,20 @@ namespace very_creative_project_name.Content.Map
 
         #region UI with input
         //Draws a room as an empty character/space
-        public void DrawRectangle(Rectangle rect, int a)
+        public void DrawRectangle(Rectangle rect)
         {
-            Console.SetCursorPosition(rect.X, rect.Y);
-            ConsoleColor[] colours = (ConsoleColor[])Enum.GetValues(typeof(ConsoleColor));
-            Console.ForegroundColor = colours[a];
+            Console.SetCursorPosition(rect.x, rect.y);
+            //Use below for debugging, add int a to void
+            //ConsoleColor[] colours = (ConsoleColor[])Enum.GetValues(typeof(ConsoleColor));
+            //Console.ForegroundColor = colours[a];
             
-            for (int i = rect.Y; i < rect.Y + rect.Height; i++)
+            for (int i = rect.y; i < rect.y + rect.height; i++)
             {
-                for (int ii = rect.X; ii < rect.X + rect.Width; ii++)
+                for (int ii = rect.x; ii < rect.x + rect.width; ii++)
                 {
+                    //Change character in Write when used to debug
                     Console.SetCursorPosition(ii, i);
-                    //Set back to empty char after overlap issue fixed!!
-                    Console.Write('#');
+                    Console.Write(' ');
                 }
             }
         }

@@ -65,8 +65,7 @@ namespace very_creative_project_name.Content.Map
 
                 //List to store rooms
                 List<Rectangle> roomStorage = new List<Rectangle>();
-                Coordinate currentRect = new Coordinate(0,0,0,0);
-                List<Coordinate> priorRect = new List<Coordinate>();
+                Rectangle currentRect = new Rectangle(0,0,0,0);
 
                 for (int i = 0; i < rooms; i++)
                 {
@@ -76,18 +75,20 @@ namespace very_creative_project_name.Content.Map
                     //Generate room size and position
                     width = random.Next(minSize, maxSize);
                     height = random.Next(minSize, maxSize);
+
                     //Random - takes away size of room and -6 to allow for bottom of the screen
                     x = random.Next(1, Console.WindowWidth - width - 6);
                     y = random.Next(1, Console.WindowHeight - height - 6);
+
                     //Sets current rectangle coordinate
-                    (currentRect.tlX, currentRect.tlY, currentRect.brX, currentRect.brY) = (x, y, x + width, y + height);
+                    (currentRect.x, currentRect.y, currentRect.width, currentRect.height) = (x, y, width, height);
 
                     if (i > 0)
                     {
                         //Checks each rectangle stored so far to compare for overlap prevention
-                        foreach (Coordinate rect in priorRect)
+                        foreach (Rectangle rect in roomStorage)
                         {
-                            bool overlap = isOverlapping(currentRect, rect);
+                            bool overlap = IsOverlapping(currentRect, rect);
                             if (overlap == true)
                             {
                                 regenerate = true;
@@ -96,18 +97,15 @@ namespace very_creative_project_name.Content.Map
 
                         //Makes the for loop go an extra iteration if overlap is found
                         if (regenerate) { i -= 1; }
-                        //Add room info to list
                         else
                         {
-                            roomStorage.Add(new Rectangle(x, y, width, height));
-                            priorRect.Add(new Coordinate(x, y, x + width, y + height));
+                            roomStorage.Add(new Rectangle(currentRect.x, currentRect.y, currentRect.width, currentRect.height));
                         }
                     }
                     //Only used for first rectangle to skip checks for above
                     else if (i == 0)
                     {
-                        roomStorage.Add(new Rectangle(x, y, width, height));
-                        priorRect.Add(currentRect);
+                        roomStorage.Add(new Rectangle(currentRect.x, currentRect.y, currentRect.width, currentRect.height));
                     }
                     
                 }
@@ -116,26 +114,25 @@ namespace very_creative_project_name.Content.Map
                 for (int i = 0; i < roomStorage.Count; i++)
                 {
                     //Displays rooms on console
-                    StartGame.disp.DrawRectangle(roomStorage[i], i);
+                    //Remove 2nd parameter for below when not debugging!
+                    StartGame.disp.DrawRectangle(roomStorage[i]);
                 }
                 //After rectangles drawn set cursor pos to empty space
                 Console.SetCursorPosition(0,26);
                 Console.ReadLine();
-
             }
 
             //Overlap check - checks if rectangles are overlapping by checking corner positions
-            public bool isOverlapping(Coordinate currentRect, Coordinate priorRect)
+            public bool IsOverlapping(Rectangle currentRect, Rectangle priorRect)
             {
-                if (currentRect.tlX < priorRect.brX || priorRect.tlX < currentRect.brX)
+                if (currentRect.x < priorRect.x + priorRect.width &&
+                    currentRect.x + currentRect.width > priorRect.x &&
+                    currentRect.y < priorRect.y + priorRect.height &&
+                    currentRect.y + currentRect.height > priorRect.y)
                 {
-                    return false;
+                    return true;
                 }
-                if (currentRect.tlY < priorRect.brY || priorRect.tlY < currentRect.brY)
-                {
-                    return false;
-                }
-                return true;
+                else { return false; }
             }
         }
         #endregion

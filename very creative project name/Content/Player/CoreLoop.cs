@@ -12,7 +12,7 @@ namespace very_creative_project_name.Content.Player
             ConsoleKeyInfo keyPressed = Console.ReadKey();
             if (Array.Exists(movementKeys, key => key == keyPressed.Key.ToString()))
             {
-                MovePlayer move = new MovePlayer(keyPressed);
+                //MovePlayer move = new MovePlayer(keyPressed);
             }
         }
     }
