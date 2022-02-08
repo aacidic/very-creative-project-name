@@ -1,18 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace very_creative_project_name.Content.Player
+namespace very_creative_project_name
 {
-    class CoreLoop
+    class CoreLoop : StartGame
     {
         public string[] movementKeys = new string[] { "W", "A", "S", "D" };
+        public string[] interactKeys = new string[] { "E" };
         public void Choice()
         {
-            ConsoleKeyInfo keyPressed = Console.ReadKey();
-            if (Array.Exists(movementKeys, key => key == keyPressed.Key.ToString()))
+            //Set position to empty space
+            Console.SetCursorPosition(0, 46);
+            bool alive = true;
+            ConsoleKeyInfo keyPressed;
+            while (alive)
             {
-                //MovePlayer move = new MovePlayer(keyPressed);
+                keyPressed = Console.ReadKey();
+                if (Array.Exists(movementKeys, key => key == keyPressed.Key.ToString()))
+                {
+                    MovePlayer move = new MovePlayer(keyPressed);
+                }
+                Console.SetCursorPosition(0, 46);
             }
         }
     }

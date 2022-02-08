@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace very_creative_project_name.Content.Text
+namespace very_creative_project_name
 {
     class ConsoleEdits
     {
@@ -14,6 +14,12 @@ namespace very_creative_project_name.Content.Text
         {
             Console.Title = title;
             return title;
+        }
+
+        public bool DisableKeyPress(bool disable)
+        {
+
+            return true;
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextProject;
 
-namespace very_creative_project_name.Content.Map
+namespace very_creative_project_name
 {
-    class Map
+    class Map : StartGame
     {
         #region Seed Generation
         //Create random seed from tick time and multiplier
@@ -33,22 +32,18 @@ namespace very_creative_project_name.Content.Map
             {
                 int.TryParse(charSplitSeed[i].ToString(), out splitSeed[i]);
             }
-            Room room = new Room();
+            Rooms room = new Rooms();
             room.Generate();
         }
         #endregion
 
-        #region Room Information/Generation
-        public struct Room
+        #region Room Generation
+
+        public static List<Room> roomStorage = new List<Room>();
+        public struct Rooms
         {
-            public const int minSize = 5;
-            public const int maxSize = 13;
-            public int rooms { get; set; }
-            public int x { get; set; }
-            public int y { get; set; }
-            public int width { get; set; }
-            public int height { get; set; }
-            public bool regenerate { get; set; }
+            public int rooms;
+            public bool regenerate;
 
             public void Generate()
             {
@@ -61,34 +56,20 @@ namespace very_creative_project_name.Content.Map
                 }
 
                 //Fill window with empty space characters before room generation
-                StartGame.disp.EmptySpace();
-
-                //List to store rooms
-                List<Rectangle> roomStorage = new List<Rectangle>();
-                Rectangle currentRect = new Rectangle(0,0,0,0);
+                disp.EmptySpace();
+                Room currentRoom;
 
                 for (int i = 0; i < rooms; i++)
                 {
                     regenerate = false;
-
-                    //----> if time, try to find out how to use seed to do this instead of random number! perlin
-                    //Generate room size and position
-                    width = random.Next(minSize, maxSize);
-                    height = random.Next(minSize, maxSize);
-
-                    //Random - takes away size of room and -6 to allow for bottom of the screen
-                    x = random.Next(1, Console.WindowWidth - width - 6);
-                    y = random.Next(1, Console.WindowHeight - height - 6);
-
-                    //Sets current rectangle coordinate
-                    (currentRect.x, currentRect.y, currentRect.width, currentRect.height) = (x, y, width, height);
+                    currentRoom = new Room();
 
                     if (i > 0)
                     {
-                        //Checks each rectangle stored so far to compare for overlap prevention
-                        foreach (Rectangle rect in roomStorage)
+                        //Checks each rectangle stored so far to compare with current for overlap prevention
+                        foreach (Room room in roomStorage)
                         {
-                            bool overlap = IsOverlapping(currentRect, rect);
+                            bool overlap = IsOverlapping(currentRoom, room);
                             if (overlap == true)
                             {
                                 regenerate = true;
@@ -96,39 +77,39 @@ namespace very_creative_project_name.Content.Map
                         }
 
                         //Makes the for loop go an extra iteration if overlap is found
-                        if (regenerate) { i -= 1; }
+                        if (regenerate)
+                        {
+                            i -= 1;
+                        }
                         else
                         {
-                            roomStorage.Add(new Rectangle(currentRect.x, currentRect.y, currentRect.width, currentRect.height));
+                            roomStorage.Add(currentRoom);
                         }
                     }
                     //Only used for first rectangle to skip checks for above
                     else if (i == 0)
                     {
-                        roomStorage.Add(new Rectangle(currentRect.x, currentRect.y, currentRect.width, currentRect.height));
-                    }
-                    
+                        roomStorage.Add(currentRoom);
+                    }                
                 }
 
-                //Use list for various stuff
+                //Uses roomStorage list to display on screen
                 for (int i = 0; i < roomStorage.Count; i++)
                 {
                     //Displays rooms on console
-                    //Remove 2nd parameter for below when not debugging!
-                    StartGame.disp.DrawRectangle(roomStorage[i]);
+                    //Remove 2nd parameter (int i) for below when not debugging!
+                    disp.DrawRectangle(roomStorage[i]);
                 }
-                //After rectangles drawn set cursor pos to empty space
-                Console.SetCursorPosition(0,26);
-                Console.ReadLine();
+                core.Choice();
             }
 
             //Overlap check - checks if rectangles are overlapping by checking corner positions
-            public bool IsOverlapping(Rectangle currentRect, Rectangle priorRect)
+            public bool IsOverlapping(Room current, Room prior)
             {
-                if (currentRect.x < priorRect.x + priorRect.width &&
-                    currentRect.x + currentRect.width > priorRect.x &&
-                    currentRect.y < priorRect.y + priorRect.height &&
-                    currentRect.y + currentRect.height > priorRect.y)
+                if (current.x < prior.x + prior.width &&
+                    current.x + current.width > prior.x &&
+                    current.y < prior.y + prior.height &&
+                    current.y + current.height > prior.y)
                 {
                     return true;
                 }

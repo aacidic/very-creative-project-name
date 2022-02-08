@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace very_creative_project_name.Content.Map
+namespace very_creative_project_name
 {
-    class Rectangle
+    class Room : Map
     {
         public int x;
         public int y;
@@ -12,14 +10,17 @@ namespace very_creative_project_name.Content.Map
         public int height;
         /*public int centerX { get { return x + (width / 2); } }
         public int centerY { get { return y + (height / 2); } }*/
+        //Use the centers later for room connection
+        public int minSize = 7;
+        public int maxSize = 15;
 
-        public Rectangle(int x, int y, int wid, int hei)
+        public Room()
         {
-            this.x = x;
-            this.y = y;
-            width = wid;
-            height = hei;
+            //----> if time, try to find out how to use seed to do this instead of random number! perlin
+            width = random.Next(minSize, maxSize);
+            height = random.Next(minSize, maxSize);
+            x = random.Next(1, Console.WindowWidth - width - 6);
+            y = random.Next(1, Console.WindowHeight - height - 6);
         }
-        //move random function into here
     }
 }

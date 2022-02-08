@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace very_creative_project_name.Content.Player
+namespace very_creative_project_name
 {
-    class MovePlayer
+    class MovePlayer : CoreLoop
     {
         public int X { get; set; }
         public int Y { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace very_creative_project_name.Content.Map
+namespace very_creative_project_name
 {
     class Display
     {
@@ -36,7 +36,7 @@ namespace very_creative_project_name.Content.Map
 
         #region UI with input
         //Draws a room as an empty character/space
-        public void DrawRectangle(Rectangle rect)
+        public void DrawRectangle(Room rect)
         {
             Console.SetCursorPosition(rect.x, rect.y);
             //Use below for debugging, add int a to void
