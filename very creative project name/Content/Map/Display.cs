@@ -5,27 +5,10 @@ namespace very_creative_project_name
     class Display
     {
         #region General UI (Non-dynamic fields)
-        //Sets out of bounds locations with fillChar
-        public void EmptySpace()
-        {
-            string fillChar = "░";
-            for (int i = 0; i < Console.WindowHeight - 5; i++)
-            {
-                string line = string.Empty;
-                for (int ii = 0; ii < Console.WindowWidth; ii++)
-                {
-                    line += fillChar;
-                }
-                Console.SetCursorPosition(0, i);
-                Console.Write(line);
-                Border();
-            }
-        }
-        
         //Creates border at bottom of the map to separate for text UI
         public void Border()
         {
-            int borderLine = Console.WindowHeight - 5;
+            int borderLine = 44;
             Console.SetCursorPosition(0, borderLine);
             for (int i = 0; i < Console.WindowWidth; i++)
             {
@@ -35,25 +18,25 @@ namespace very_creative_project_name
         #endregion
 
         #region UI with input
-        //Draws a room as an empty character/space
-        public void DrawRectangle(Room rect)
+        //Draws the map from tileType in Properties - check there for defining types
+        public void DrawMap(int[][] fullMap)
         {
-            Console.SetCursorPosition(rect.x, rect.y);
-            //Use below for debugging, add int a to void
-            //ConsoleColor[] colours = (ConsoleColor[])Enum.GetValues(typeof(ConsoleColor));
-            //Console.ForegroundColor = colours[a];
-            
-            for (int i = rect.y; i < rect.y + rect.height; i++)
+            foreach (int[] row in fullMap)
             {
-                for (int ii = rect.x; ii < rect.x + rect.width; ii++)
+                foreach (int single in row)
                 {
-                    //Change character in Write when used to debug
-                    Console.SetCursorPosition(ii, i);
-                    Console.Write(' ');
+                    if (single == 0)
+                    {
+                        Console.Write('░');
+                    }
+                    else if (single == 1)
+                    {
+                        Console.Write(' ');
+                    }
                 }
             }
+            Border();
         }
-
         public void DrawPlayer(int x, int y)
         {
             Console.SetCursorPosition(x, y);

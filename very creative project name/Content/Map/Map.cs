@@ -55,10 +55,7 @@ namespace very_creative_project_name
                     if (splitSeed[5] == 0) { rooms = 9; }
                 }
 
-                //Fill window with empty space characters before room generation
-                disp.EmptySpace();
                 Room currentRoom;
-
                 for (int i = 0; i < rooms; i++)
                 {
                     regenerate = false;
@@ -70,21 +67,12 @@ namespace very_creative_project_name
                         foreach (Room room in roomStorage)
                         {
                             bool overlap = IsOverlapping(currentRoom, room);
-                            if (overlap == true)
-                            {
-                                regenerate = true;
-                            }
+                            if (overlap == true) { regenerate = true; }
                         }
 
                         //Makes the for loop go an extra iteration if overlap is found
-                        if (regenerate)
-                        {
-                            i -= 1;
-                        }
-                        else
-                        {
-                            roomStorage.Add(currentRoom);
-                        }
+                        if (regenerate) { i -= 1; }
+                        else { roomStorage.Add(currentRoom); }
                     }
                     //Only used for first rectangle to skip checks for above
                     else if (i == 0)
@@ -93,13 +81,15 @@ namespace very_creative_project_name
                     }                
                 }
 
-                //Uses roomStorage list to display on screen
+                //Sets all map-based properties to 0 before display
+                prop.SetBase();
+
                 for (int i = 0; i < roomStorage.Count; i++)
                 {
-                    //Displays rooms on console
-                    //Remove 2nd parameter (int i) for below when not debugging!
-                    disp.DrawRectangle(roomStorage[i]);
+                    //Sets properties at rectangle positions
+                    prop.SetRoom(roomStorage[i]);
                 }
+                prop.Display();
                 core.Choice();
             }
 
