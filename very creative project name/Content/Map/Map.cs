@@ -84,12 +84,35 @@ namespace very_creative_project_name
                 //Sets all map-based properties to 0 before display
                 prop.SetBase();
 
+                //Sets properties at rectangle positions
                 for (int i = 0; i < roomStorage.Count; i++)
                 {
-                    //Sets properties at rectangle positions
                     prop.SetRoom(roomStorage[i]);
                 }
-                prop.Display();
+
+                disp.DrawMap(prop.tileType);
+
+                //Generate player spawnpoint
+                bool generatePlayer = true;
+                int x, y;
+                while (generatePlayer)
+                {
+                    x = random.Next(0, 200);
+                    y = random.Next(0, 44);
+
+                    foreach (Room room in roomStorage)
+                    {
+                        if (x >= room.x && x <= room.x + room.width)
+                        {
+                            if (y >= room.y && y <= room.y + room.height)
+                            {
+                                generatePlayer = false;
+                                disp.DrawPlayer(x, y);
+                                break;
+                            }
+                        }
+                    }
+                }
                 core.Choice();
             }
 

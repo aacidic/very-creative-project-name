@@ -35,10 +35,5 @@ namespace very_creative_project_name
                 }
             }
         }
-
-        public void Display()
-        {
-            disp.DrawMap(tileType);
-        }
     }
 }

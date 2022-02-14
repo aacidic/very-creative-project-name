@@ -35,8 +35,10 @@ namespace very_creative_project_name
                     }
                 }
             }
+            //Draws border below the map after map itself
             Border();
         }
+
         public void DrawPlayer(int x, int y)
         {
             Console.SetCursorPosition(x, y);
