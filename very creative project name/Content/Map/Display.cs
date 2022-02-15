@@ -2,7 +2,7 @@
 
 namespace very_creative_project_name
 {
-    class Display
+    class Display : StartGame
     {
         #region General UI (Non-dynamic fields)
         //Creates border at bottom of the map to separate for text UI
@@ -20,29 +20,57 @@ namespace very_creative_project_name
         #region UI with input
         //Draws the map from tileType in Properties - check there for defining types
         public void DrawMap(int[][] fullMap)
-        {
-            foreach (int[] row in fullMap)
+        {           
+            for (int y = 0; y < fullMap.Length; y++)
             {
-                foreach (int single in row)
+                for (int x = 0; x < fullMap[y].Length; x++)
                 {
-                    if (single == 0)
-                    {
-                        Console.Write('░');
-                    }
-                    else if (single == 1)
-                    {
-                        Console.Write(' ');
-                    }
+                    Console.Write(Char(prop.tileType[y][x]));
                 }
             }
             //Draws border below the map after map itself
             Border();
         }
 
+        //Draws the player from the stat position
+        int lastX, lastY = 1;
         public void DrawPlayer(int x, int y)
         {
+            //Prevents movement if console is not correct size
+            if (Console.WindowWidth == 200 && Console.WindowHeight == 50)
+            {
+                edit.Colour("Red");
+                Console.SetCursorPosition(x, y);
+                Console.Write("■");
+                edit.Colour("Blue");
+                if (lastX != x || lastY != y)
+                {
+                    FillLast(lastX, lastY);
+                    (lastX, lastY) = (x, y);
+                }
+            }
+        }
+
+        public void FillLast(int x, int y)
+        {
             Console.SetCursorPosition(x, y);
-            Console.Write("X");
+            Console.Write(Char(prop.tileType[y][x]));
+        }
+
+        public char Char(int type)
+        {
+            if (type == 0)
+            {
+                return '░';
+            }
+            else if (type == 1)
+            {
+                return ' ';
+            }
+            else
+            {
+                return '?';
+            }
         }
         #endregion
     }

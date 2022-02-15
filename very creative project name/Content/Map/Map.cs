@@ -83,10 +83,29 @@ namespace very_creative_project_name
 
                 //Sets all map-based properties to 0 before display
                 prop.SetBase();
+                RoomPaths path = new RoomPaths();
 
                 //Sets properties at rectangle positions
                 for (int i = 0; i < roomStorage.Count; i++)
                 {
+                    //These uses the centerX/Y of each room to create pathways between each room
+                    if (i > 0)
+                    {
+                        int currentCenterX, currentCenterY, priorCenterX, priorCenterY;
+                        (currentCenterX, currentCenterY) = (roomStorage[i].centerX, roomStorage[i].centerY);
+                        (priorCenterX, priorCenterY) = (roomStorage[i - 1].centerX, roomStorage[i - 1].centerY);
+
+                        if (random.Next(1, 2) == 1)
+                        {
+                            path.CreatePathHor(priorCenterX, currentCenterX, priorCenterY);
+                            path.CreatePathVer(priorCenterY, currentCenterY, currentCenterX);
+                        }
+                        else
+                        {
+                            path.CreatePathVer(priorCenterY, currentCenterY, currentCenterX);
+                            path.CreatePathHor(priorCenterX, currentCenterX, priorCenterY);
+                        }
+                    }
                     prop.SetRoom(roomStorage[i]);
                 }
 
@@ -107,7 +126,8 @@ namespace very_creative_project_name
                             if (y >= room.y && y <= room.y + room.height)
                             {
                                 generatePlayer = false;
-                                disp.DrawPlayer(x, y);
+                                (stats.x, stats.y) = (x, y);
+                                disp.DrawPlayer(stats.x, stats.y);
                                 break;
                             }
                         }

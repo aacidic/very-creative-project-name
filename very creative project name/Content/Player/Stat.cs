@@ -6,11 +6,27 @@ namespace very_creative_project_name
 {
     class Stat
     {
-        public struct Stats
+        public int health;
+        public int charge;
+        public int x, y;
+        
+        public Stat()
         {
-            public int health;
-            public int charge;
-            public int x, y;
+
+        }
+
+        public Stat(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public Stat(int health, int charge, int x, int y)
+        {
+            this.health = health;
+            this.charge = charge;
+            this.x = x;
+            this.y = y;
         }
     }
 }

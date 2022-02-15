@@ -4,8 +4,8 @@ namespace very_creative_project_name
 {
     class CoreLoop : StartGame
     {
-        public int x, y;
         public string[] movementKeys = new string[] { "W", "A", "S", "D" };
+        public ConsoleKey resizeKey = ConsoleKey.M;
         public string[] interactKeys = new string[] { "E" };
         public void Choice()
         {
@@ -20,17 +20,49 @@ namespace very_creative_project_name
                 {
                     MovePlayer(keyPressed);
                 }
+                else if (keyPressed.Key == resizeKey)
+                {
+                    Console.SetWindowSize(200, 50);
+                    Console.SetWindowPosition(0, 0);
+                }
                 Console.SetCursorPosition(0, 46);
             }
         }
 
         public void MovePlayer(ConsoleKeyInfo key)
         {
-            if (key.Key == ConsoleKey.W) { y -= 1; }
-            else if (key.Key == ConsoleKey.A) { x -= 1; }
-            else if (key.Key == ConsoleKey.S) { y += 1; }
-            else if (key.Key == ConsoleKey.D) { x += 1; }
-            disp.DrawPlayer(x, y);
+            int checkValidY = stats.y;
+            int checkValidX = stats.x;
+
+            if (key.Key == ConsoleKey.W)
+            {
+                if (prop.tileType[checkValidY -= 1][stats.x] != 0)
+                {
+                    stats.y -= 1;
+                }
+            }
+            else if (key.Key == ConsoleKey.A)
+            {
+                if (prop.tileType[stats.y][checkValidX -= 1] != 0)
+                {
+                    stats.x -= 1;
+                }
+            }
+            else if (key.Key == ConsoleKey.S)
+            {
+                if (prop.tileType[checkValidY += 1][stats.x] != 0)
+                {
+                    stats.y += 1;
+                }
+            }
+            else if (key.Key == ConsoleKey.D)
+            {
+                if (prop.tileType[stats.y][checkValidX += 1] != 0)
+                {
+                    stats.x += 1;
+                }
+            }
+            disp.DrawPlayer(stats.x, stats.y);
         }
     }
 }
