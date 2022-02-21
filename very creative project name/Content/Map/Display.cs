@@ -1,4 +1,5 @@
 ﻿using System;
+using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
 {

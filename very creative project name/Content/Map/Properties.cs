@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace very_creative_project_name
+﻿namespace very_creative_project_name
 {
     class Properties : Map
     {
@@ -37,6 +35,11 @@ namespace very_creative_project_name
                     tileType[y][x] = 1;
                 }
             }
+        }
+
+        public void SetExtra(int x, int y, int tile)
+        {
+            tileType[y][x] = tile;
         }
     }
 }

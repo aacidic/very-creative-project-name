@@ -1,68 +1,47 @@
 ﻿using System;
+using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
 {
-    class CoreLoop : StartGame
+    class CoreLoop
     {
-        public string[] movementKeys = new string[] { "W", "A", "S", "D" };
-        public ConsoleKey resizeKey = ConsoleKey.M;
-        public string[] interactKeys = new string[] { "E" };
+        //Movement: WASD
+        //Interacts: M = Resize screen, E = Interact with item in room
+        public ConsoleKey[] movementKeys = new ConsoleKey[] { ConsoleKey.W, ConsoleKey.A, ConsoleKey.S, ConsoleKey.D };
+        public ConsoleKey[] interactKeys = new ConsoleKey[] { ConsoleKey.E, ConsoleKey.M };
         public void Choice()
         {
-            //Set position to empty space
-            Console.SetCursorPosition(0, 46);
+            Console.SetCursorPosition(0, 45);
             bool alive = true;
             ConsoleKeyInfo keyPressed;
             while (alive)
             {
-                keyPressed = Console.ReadKey();
-                if (Array.Exists(movementKeys, key => key == keyPressed.Key.ToString()))
-                {
-                    MovePlayer(keyPressed);
-                }
-                else if (keyPressed.Key == resizeKey)
-                {
-                    Console.SetWindowSize(200, 50);
-                    Console.SetWindowPosition(0, 0);
-                }
-                Console.SetCursorPosition(0, 46);
-            }
-        }
+                keyPressed = Console.ReadKey(true);
 
-        public void MovePlayer(ConsoleKeyInfo key)
-        {
-            int checkValidY = stats.y;
-            int checkValidX = stats.x;
+                if (Array.Exists(movementKeys, key => key == keyPressed.Key))
+                {
+                    bool moveSuccess = move.Player(keyPressed);
+                    if (!moveSuccess)
+                    {
+                        Console.Write("You cannot move there!");
+                    }
+                    //Clears line 45 if the player had a prior invalid movement
+                    else
+                    {
+                        for (int i = 0; i < 200; i++)
+                        {
+                            Console.SetCursorPosition(i, 45);
+                            Console.Write(' ');
+                        }
+                    }
+                }
+                else if (Array.Exists(interactKeys, key => key == keyPressed.Key))
+                {
+                    interact.Branch(keyPressed);
+                }
 
-            if (key.Key == ConsoleKey.W)
-            {
-                if (prop.tileType[checkValidY -= 1][stats.x] != 0)
-                {
-                    stats.y -= 1;
-                }
+                Console.SetCursorPosition(0, 45);
             }
-            else if (key.Key == ConsoleKey.A)
-            {
-                if (prop.tileType[stats.y][checkValidX -= 1] != 0)
-                {
-                    stats.x -= 1;
-                }
-            }
-            else if (key.Key == ConsoleKey.S)
-            {
-                if (prop.tileType[checkValidY += 1][stats.x] != 0)
-                {
-                    stats.y += 1;
-                }
-            }
-            else if (key.Key == ConsoleKey.D)
-            {
-                if (prop.tileType[stats.y][checkValidX += 1] != 0)
-                {
-                    stats.x += 1;
-                }
-            }
-            disp.DrawPlayer(stats.x, stats.y);
         }
     }
 }

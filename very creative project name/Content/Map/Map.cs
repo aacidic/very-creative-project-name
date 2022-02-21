@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
 {
@@ -95,7 +96,7 @@ namespace very_creative_project_name
                         (currentCenterX, currentCenterY) = (roomStorage[i].centerX, roomStorage[i].centerY);
                         (priorCenterX, priorCenterY) = (roomStorage[i - 1].centerX, roomStorage[i - 1].centerY);
 
-                        if (random.Next(1, 2) == 1)
+                        if (splitSeed[4] > 5)
                         {
                             path.CreatePathHor(priorCenterX, currentCenterX, priorCenterY);
                             path.CreatePathVer(priorCenterY, currentCenterY, currentCenterX);
@@ -121,9 +122,9 @@ namespace very_creative_project_name
 
                     foreach (Room room in roomStorage)
                     {
-                        if (x >= room.x && x <= room.x + room.width)
+                        if (x > room.x && x < room.x + room.width)
                         {
-                            if (y >= room.y && y <= room.y + room.height)
+                            if (y > room.y && y < room.y + room.height)
                             {
                                 generatePlayer = false;
                                 (stats.x, stats.y) = (x, y);
@@ -133,6 +134,8 @@ namespace very_creative_project_name
                         }
                     }
                 }
+
+                //Starts gameplay sequence
                 core.Choice();
             }
 
