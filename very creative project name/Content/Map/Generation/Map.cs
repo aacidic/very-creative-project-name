@@ -10,7 +10,7 @@ namespace very_creative_project_name
         //Create random seed from tick time and multiplier
         public static Random random = new Random();
         public static int seed { get; set; }
-        static int[] splitSeed { get; set; }
+        public static int[] splitSeed { get; set; }
         public static void Seed()
         {
             char[] charSplitSeed;
@@ -39,7 +39,6 @@ namespace very_creative_project_name
         #endregion
 
         #region Room Generation
-
         public static List<Room> roomStorage = new List<Room>();
         public struct Rooms
         {
@@ -109,31 +108,10 @@ namespace very_creative_project_name
                     }
                     prop.SetRoom(roomStorage[i]);
                 }
-
+                extra.Enemy();
+                extra.Loot();
                 disp.DrawMap(prop.tileType);
-
-                //Generate player spawnpoint
-                bool generatePlayer = true;
-                int x, y;
-                while (generatePlayer)
-                {
-                    x = random.Next(0, 200);
-                    y = random.Next(0, 44);
-
-                    foreach (Room room in roomStorage)
-                    {
-                        if (x > room.x && x < room.x + room.width)
-                        {
-                            if (y > room.y && y < room.y + room.height)
-                            {
-                                generatePlayer = false;
-                                (stats.x, stats.y) = (x, y);
-                                disp.DrawPlayer(stats.x, stats.y);
-                                break;
-                            }
-                        }
-                    }
-                }
+                extra.Player();
 
                 //Starts gameplay sequence
                 core.Choice();

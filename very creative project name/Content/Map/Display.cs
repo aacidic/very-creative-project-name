@@ -27,6 +27,7 @@ namespace very_creative_project_name
                 for (int x = 0; x < fullMap[y].Length; x++)
                 {
                     Console.Write(Char(prop.tileType[y][x]));
+                    edit.Colour("Blue");
                 }
             }
             //Draws border below the map after map itself
@@ -40,7 +41,7 @@ namespace very_creative_project_name
             //Prevents movement if console is not correct size
             if (Console.WindowWidth == 200 && Console.WindowHeight == 50)
             {
-                edit.Colour("Red");
+                edit.Colour("Green");
                 Console.SetCursorPosition(x, y);
                 Console.Write("■");
                 edit.Colour("Blue");
@@ -49,6 +50,7 @@ namespace very_creative_project_name
                     FillLast(lastX, lastY);
                     (lastX, lastY) = (x, y);
                 }
+                Console.SetCursorPosition(0, 0);
             }
         }
 
@@ -68,6 +70,17 @@ namespace very_creative_project_name
             {
                 return ' ';
             }
+            else if (type == 2)
+            {
+                edit.Colour("DarkRed");
+                return '■';
+            }
+            else if (type == 3)
+            {
+                edit.Colour("Cyan");
+                return '¤';
+            }
+            //This means one of the tiletypes are invalid or an incorrect number
             else
             {
                 return '?';

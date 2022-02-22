@@ -9,5 +9,6 @@
         public static Stat stats = new Stat();
         public static Move move = new Move();
         public static Interacts interact = new Interacts();
+        public static ExtraGeneration extra = new ExtraGeneration();
     }
 }
