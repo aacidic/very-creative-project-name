@@ -17,6 +17,7 @@ namespace very_creative_project_name
             for (int y = Math.Min(start, end); y <= Math.Max(start, end); y++)
             {
                 prop.tileType[y][pos] = 1;
+                prop.tileType[y][pos + 1] = 1;
             }
         }
     }

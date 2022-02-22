@@ -12,7 +12,7 @@ namespace very_creative_project_name
 
             if (key.Key == ConsoleKey.W)
             {
-                if (prop.tileType[checkValidY -= 1][stats.x] != 0)
+                if (ValidMove(checkValidX, checkValidY - 1))
                 {
                     stats.y -= 1;
                 }
@@ -20,7 +20,7 @@ namespace very_creative_project_name
             }
             else if (key.Key == ConsoleKey.A)
             {
-                if (prop.tileType[stats.y][checkValidX -= 1] != 0)
+                if (ValidMove(checkValidX - 1, checkValidY))
                 {
                     stats.x -= 1;
                 }
@@ -28,7 +28,7 @@ namespace very_creative_project_name
             }
             else if (key.Key == ConsoleKey.S)
             {
-                if (prop.tileType[checkValidY += 1][stats.x] != 0)
+                if (ValidMove(checkValidX, checkValidY + 1))
                 {
                     stats.y += 1;
                 }
@@ -36,7 +36,7 @@ namespace very_creative_project_name
             }
             else if (key.Key == ConsoleKey.D)
             {
-                if (prop.tileType[stats.y][checkValidX += 1] != 0)
+                if (ValidMove(checkValidX + 1, checkValidY))
                 {
                     stats.x += 1;
                 }
@@ -44,6 +44,15 @@ namespace very_creative_project_name
             }
             disp.DrawPlayer(stats.x, stats.y);
             return true;
+        }
+
+        public bool ValidMove(int x, int y)
+        {
+            if (prop.tileType[y][x] == 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace very_creative_project_name
         public Room()
         {
             //----> if time, try to find out how to use seed to do this instead of random number! perlin
-            width = random.Next(minSize, maxSize);
+            width = 2 * random.Next(minSize, maxSize);
             height = random.Next(minSize, maxSize);
             x = random.Next(1, Console.WindowWidth - width - 6);
             y = random.Next(1, Console.WindowHeight - height - 6);
