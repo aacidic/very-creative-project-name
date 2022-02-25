@@ -12,7 +12,7 @@ namespace very_creative_project_name
 
             if (key.Key == ConsoleKey.W)
             {
-                if (ValidMove(checkValidX, checkValidY - 1))
+                if (InvalidMove(checkValidX, checkValidY - 1))
                 {
                     stats.y -= 1;
                 }
@@ -20,7 +20,7 @@ namespace very_creative_project_name
             }
             else if (key.Key == ConsoleKey.A)
             {
-                if (ValidMove(checkValidX - 1, checkValidY))
+                if (InvalidMove(checkValidX - 1, checkValidY))
                 {
                     stats.x -= 1;
                 }
@@ -28,7 +28,7 @@ namespace very_creative_project_name
             }
             else if (key.Key == ConsoleKey.S)
             {
-                if (ValidMove(checkValidX, checkValidY + 1))
+                if (InvalidMove(checkValidX, checkValidY + 1))
                 {
                     stats.y += 1;
                 }
@@ -36,7 +36,7 @@ namespace very_creative_project_name
             }
             else if (key.Key == ConsoleKey.D)
             {
-                if (ValidMove(checkValidX + 1, checkValidY))
+                if (InvalidMove(checkValidX + 1, checkValidY))
                 {
                     stats.x += 1;
                 }
@@ -46,13 +46,14 @@ namespace very_creative_project_name
             return true;
         }
 
-        public bool ValidMove(int x, int y)
+        //Checks if player is on tiletype 0 (wall gradiant char) or tiletype 2 (enemy)
+        public bool InvalidMove(int x, int y)
         {
-            if (prop.tileType[y][x] == 1)
+            if (prop.tileType[y][x] == 0 || prop.tileType[y][x] == 2)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }

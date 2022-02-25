@@ -37,6 +37,7 @@
             }
         }
 
+        //Sets any extra tile types by individual coordinates
         public void SetExtra(int x, int y, int tile)
         {
             tileType[y][x] = tile;

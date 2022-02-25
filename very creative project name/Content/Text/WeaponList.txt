@@ -1,4 +1,0 @@
-﻿# ID | ITEM NAME | ITEM DAMAGE | ITEM RANGE | ITEM DESC | ITEM SPECIAL # (0 FOR NONE)
-# SPECIAL BREAKDOWN: 1 - CONSUMABLE,
-0 | Broadsword | 1 | 1 | A trusty sword. | 0
-1 | Tomahawk | 2 | 3 | Gives your opponent a free mohawk! | 1

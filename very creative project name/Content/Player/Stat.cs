@@ -9,6 +9,9 @@ namespace very_creative_project_name
         public int health;
         public int charge;
         public int x, y;
+        public int dodgeChance;
+        public int critChance;
+        public int gold;
         
         public Stat()
         {
@@ -27,6 +30,19 @@ namespace very_creative_project_name
             this.charge = charge;
             this.x = x;
             this.y = y;
+        }
+    }
+
+    abstract class Stats
+    {
+        public string playerName;
+        public int health;
+        public int charge;
+        public int x, y;
+
+        public Stats()
+        {
+
         }
     }
 }

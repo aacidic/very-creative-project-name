@@ -15,11 +15,5 @@ namespace very_creative_project_name
             Console.Title = title;
             return title;
         }
-
-        public bool DisableKeyPress(bool disable)
-        {
-
-            return true;
-        }
     }
 }

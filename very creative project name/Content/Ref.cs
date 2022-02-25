@@ -2,6 +2,7 @@
 {
     abstract class Ref
     {
+        public static Seed seed = new Seed();
         public static Display disp = new Display();
         public static CoreLoop core = new CoreLoop();
         public static ConsoleEdits edit = new ConsoleEdits();

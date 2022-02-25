@@ -25,7 +25,7 @@ namespace very_creative_project_name
                     {
                         Console.Write("You cannot move there!");
                     }
-                    //Clears line 45 if the player had a prior invalid movement
+                    //Clears line 45 of console window if the player had a prior invalid movement
                     else
                     {
                         for (int i = 0; i < 200; i++)
@@ -38,6 +38,11 @@ namespace very_creative_project_name
                 else if (Array.Exists(interactKeys, key => key == keyPressed.Key))
                 {
                     interact.Branch(keyPressed);
+                }
+
+                if(prop.tileType[stats.y][stats.x] == 3)
+                {
+                    Loot loot = new Loot();
                 }
 
                 Console.SetCursorPosition(0, 45);
