@@ -46,6 +46,8 @@ namespace very_creative_project_name
                 }
 
                 Console.SetCursorPosition(0, 45);
+                InventoryConvert inv = new InventoryConvert();
+                inv.ChangeToJson();
             }
         }
     }

@@ -19,6 +19,9 @@ namespace very_creative_project_name
                 if (splitSeed[5] == 0) { rooms = 9; }
             }
 
+            //Sets all map-based properties to 0 before display
+            prop.SetBase();
+
             Room currentRoom;
             for (int i = 0; i < rooms; i++)
             {
@@ -45,8 +48,6 @@ namespace very_creative_project_name
                 }                
             }
 
-            //Sets all map-based properties to 0 before display
-            prop.SetBase();
             RoomPaths path = new RoomPaths();
 
             //Sets properties at rectangle positions

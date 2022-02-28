@@ -2,17 +2,21 @@
 {
     class Weapon : Item
     {
-        public int damage;
+        public int Damage { get; set; }
 
-        public Weapon(int damage, string name, int id, string desc, int weight, int special, Type type, int stack) : base(name, id, desc, weight, special, type, stack)
+        public Weapon()
         {
-            this.damage = damage;
+        }
+
+        public Weapon(int damage, int id, string name, string desc, int weight, Type type, int amt) : base(id, name, desc, weight, type, amt)
+        {
+            Damage = damage;
         }
 
         public override string Display()
         {
             string item = "";
-            item += "Damage: " + damage;
+            item += "Damage: " + Damage;
             base.Display();
             return item;
         }

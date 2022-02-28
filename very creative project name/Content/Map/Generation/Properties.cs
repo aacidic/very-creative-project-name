@@ -1,4 +1,6 @@
-﻿namespace very_creative_project_name
+﻿using System;
+
+namespace very_creative_project_name
 {
     class Properties : Map
     {

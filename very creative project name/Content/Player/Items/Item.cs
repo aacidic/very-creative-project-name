@@ -12,39 +12,37 @@ namespace very_creative_project_name
     }
     abstract class Item
     {
-        public string name;
-        public int id;
-        public string desc;
-        public float weight;
-        public int special;
-        public Type type;
-        public int stack;
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public float Weight { get; set; }
+        public Type ItemType { get; set; }
+        public int Amount { get; set; }
 
         public Item()
         {
             
         }
         
-        public Item(string name, int id, string desc, float weight, int special, Type type, int stack)
+        public Item(int id, string name, string desc, float weight, Type type, int amt)
         {
-            this.name = name;
-            this.id = id;
-            this.desc = desc;
-            this.weight = weight;
-            this.special = special;
-            this.type = type;
-            this.stack = stack;
+            ID = id;
+            Name = name;
+            Description = desc;
+            Weight = weight;
+            ItemType = type;
+            Amount = amt;
         }
 
         //Don't display ID or special
         public virtual string Display()
         {
             string item = "";
-            item += type.ToString() + ": ";
-            item += name + " > ";
-            item += desc + " > ";
-            item += "Rarity: " + weight;
-            item += "Amount: " + stack;
+            item += ItemType.ToString() + ": ";
+            item += Name + " > ";
+            item += Description + " > ";
+            item += "Rarity: " + Weight;
+            item += "Amount: " + Amount;
             return item;
         }
     }

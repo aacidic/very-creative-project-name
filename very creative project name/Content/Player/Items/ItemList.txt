@@ -1,5 +1,0 @@
-﻿ID | Type | Name | Desc | Damage | Range | HealthBoost | DodgeChance
-0 | 0 | Broadsword | A trusty sword. | 1 | 1 | 0 | 0 
-1 | 1 | Block of Wood | Block with a block of wood! | 0 | 0 | 2 | 0
-2 | 0 | Tomahawk | Gives your opponent a free (to)mohawk! | 2 | 2 | 0 | 0
-3 | 1 | Basic Shield | basic_shield_desc.txt | 0 | 0 | 5 | 0

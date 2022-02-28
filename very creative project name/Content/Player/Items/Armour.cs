@@ -2,17 +2,17 @@
 {
     class Armour : Item
     {
-        public int healthBoost;
+        public int HealthBoost { get; set; }
 
-        public Armour(int healthBoost, string name, int id, string desc, int weight, int special, Type type, int stack) : base(name, id, desc, weight, special, type, stack)
+        public Armour(int healthBoost, int id, string name, string desc, int weight, Type type, int amt) : base(id, name, desc, weight, type, amt)
         {
-            this.healthBoost = healthBoost;
+            HealthBoost = healthBoost;
         }
 
         public override string Display()
         {
             string item = "";
-            item += "Health Increase: " + healthBoost;
+            item += "Health Increase: " + HealthBoost;
             base.Display();
             return item;
         }

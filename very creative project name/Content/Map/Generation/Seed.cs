@@ -5,7 +5,7 @@ namespace very_creative_project_name
     class Seed
     {
         //Create random seed from tick time and multiplier
-        public static Random random = new Random();
+        public Random random = new Random();
         public static int seed;
         public static int[] splitSeed;
         public void GenSeed()
