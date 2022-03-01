@@ -13,9 +13,29 @@ namespace very_creative_project_name
         {
             Console.SetCursorPosition(0, 45);
             bool alive = true;
+            stats.health = 10;
             ConsoleKeyInfo keyPressed;
+
             while (alive)
             {
+                //Display stats at bottom line
+                Console.SetCursorPosition(0, 49);
+                string[] stats = disp.Stats();
+                for (int i = 0; i < stats.Length; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        edit.Colour(stats[i]);
+                    }
+                    else
+                    {
+                        Console.Write(string.Format("{0," + ((Console.WindowWidth / 5) + (stats[i].Length / 5)) + "}", stats[i]));
+                    }
+                }
+                edit.Colour("Blue");
+                Console.SetCursorPosition(0, 45);
+
+
                 keyPressed = Console.ReadKey(true);
 
                 if (Array.Exists(movementKeys, key => key == keyPressed.Key))
@@ -39,15 +59,8 @@ namespace very_creative_project_name
                 {
                     interact.Branch(keyPressed);
                 }
-
-                if(prop.tileType[stats.y][stats.x] == 3)
-                {
-                    Loot loot = new Loot();
-                }
-
-                Console.SetCursorPosition(0, 45);
                 InventoryConvert inv = new InventoryConvert();
-                inv.ChangeToJson();
+                //inv.ChangeToJson();
             }
         }
     }

@@ -4,6 +4,11 @@
     {
         public int HealthBoost { get; set; }
 
+        public Armour()
+        {
+
+        }
+
         public Armour(int healthBoost, int id, string name, string desc, int weight, Type type, int amt) : base(id, name, desc, weight, type, amt)
         {
             HealthBoost = healthBoost;

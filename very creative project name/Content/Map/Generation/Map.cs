@@ -77,6 +77,7 @@ namespace very_creative_project_name
             extra.Loot();
             disp.DrawMap(prop.tileType);
             extra.Player();
+            extra.ExitRoom();
 
             //Starts gameplay sequence
             core.Choice();

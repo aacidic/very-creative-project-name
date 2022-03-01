@@ -1,5 +1,4 @@
-﻿using System;
-using static very_creative_project_name.Ref;
+﻿using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
 {
@@ -34,6 +33,12 @@ namespace very_creative_project_name
                     prop.SetExtra(pos[0], pos[1], 2);
                 }
             }
+        }
+
+        public void ExitRoom()
+        {
+            int[] pos = IsInRoom();
+            prop.SetExtra(pos[0], pos[1], 4);
         }
 
         public int[] IsInRoom()
