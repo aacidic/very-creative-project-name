@@ -60,7 +60,7 @@ namespace very_creative_project_name
                     interact.Branch(keyPressed);
                 }
                 InventoryConvert inv = new InventoryConvert();
-                //inv.ChangeToJson();
+                inv.ChangeToJson();
             }
         }
     }
