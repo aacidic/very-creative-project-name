@@ -18,11 +18,13 @@ namespace very_creative_project_name
 
         }
 
-        public Stat(int health, int x, int y, Item item)
+        public Stat(int health, int x, int y, int dodge, int crit, Item item)
         {
             this.health = health;
             this.x = x;
             this.y = y;
+            dodgeChance = dodge;
+            critChance = crit;
             inventory.Add(item);
         }
     }

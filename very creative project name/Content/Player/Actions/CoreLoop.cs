@@ -8,7 +8,8 @@ namespace very_creative_project_name
         //Movement: WASD
         //Interacts: M = Resize screen, E = Interact with item in room
         public ConsoleKey[] movementKeys = new ConsoleKey[] { ConsoleKey.W, ConsoleKey.A, ConsoleKey.S, ConsoleKey.D };
-        public ConsoleKey[] interactKeys = new ConsoleKey[] { ConsoleKey.E, ConsoleKey.M };
+        public ConsoleKey[] interactKeys = new ConsoleKey[] { ConsoleKey.E, ConsoleKey.M, ConsoleKey.I };
+        Random r = new Random();
         public void Choice()
         {
             Console.SetCursorPosition(0, 45);
@@ -18,6 +19,22 @@ namespace very_creative_project_name
 
             while (alive)
             {
+                //Check if an enemy is in range
+                foreach (Point pos in prop.enemy)
+                {
+                    if (enemy.InRange(pos))
+                    {
+                        int dir = r.Next(0, 2);
+                        if (dir == 0)
+                        {
+                            enemy.MoveX(pos);
+                        }
+                        else if (dir == 1)
+                        {
+                            enemy.MoveY(pos);
+                        }
+                    }
+                }
                 //Display stats at bottom line
                 Console.SetCursorPosition(0, 49);
                 string[] stats = disp.Stats();

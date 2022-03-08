@@ -30,6 +30,7 @@ namespace very_creative_project_name
                 for (int i = 0; i < splitSeed[2]; i++)
                 {
                     int[] pos = IsInRoom();
+                    prop.enemy.Add(new Point(pos[0], pos[1]));
                     prop.SetExtra(pos[0], pos[1], 2);
                 }
             }

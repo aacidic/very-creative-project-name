@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Collections.Generic;
-using System.Text.Json;
+//using System.Text.Json;
 using System;
 
 namespace very_creative_project_name
@@ -9,8 +9,8 @@ namespace very_creative_project_name
     {
         public List<Item> inventory = new List<Item>();
 
-        Weapon starterWeapon;
-        Armour starterArmour;
+        //Weapon starterWeapon;
+        //Armour starterArmour;
 
         string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\")) + @"Content\Text\ItemList.txt";
         string path2 = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\")) + @"Content\Text\Items.json";
@@ -19,9 +19,7 @@ namespace very_creative_project_name
         {
             foreach (string line in File.ReadLines(path))
             {
-                Console.WriteLine(line);
                 string[] item = line.Split('|');
-                Console.WriteLine(item[0]);
 
                 Weapon weapon = new Weapon
                 {
@@ -33,14 +31,14 @@ namespace very_creative_project_name
                     Damage = int.Parse(item[6])
                 };
 
-                var json = new JsonSerializerOptions { WriteIndented = true };
-                string jsonStr = JsonSerializer.Serialize(weapon, json);
+                //var json = new JsonSerializerOptions { WriteIndented = true };
+                //string jsonStr = JsonSerializer.Serialize(weapon, json);
 
-                using (StreamWriter write = new StreamWriter(path2))
-                {
-                    write.Write(jsonStr);
-                    write.Close();
-                }
+                //using (StreamWriter write = new StreamWriter(path2))
+                //{
+                //    write.Write(jsonStr);
+                //    write.Close();
+                //}
             }
         }
     }

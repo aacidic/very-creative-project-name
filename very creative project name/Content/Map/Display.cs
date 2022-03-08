@@ -108,12 +108,26 @@ namespace very_creative_project_name
                 edit.Colour("Cyan");
                 return '¤';
             }
-
             //This means one of the tiletypes are invalid or an incorrect number
             else
             {
                 return '?';
             }
+        }
+
+        public void UpdateEnemyX(int x, int y, int dir)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(Char(prop.tileType[y][x]));
+            Console.SetCursorPosition(x + dir, y);
+            Console.Write(Char(prop.tileType[y][x + dir]));
+        }
+        public void UpdateEnemyY(int x, int y, int dir)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(Char(prop.tileType[y][x]));
+            Console.SetCursorPosition(x, y + dir);
+            Console.Write(Char(prop.tileType[y + dir][x]));
         }
 
         public string[] Stats()

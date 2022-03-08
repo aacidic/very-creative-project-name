@@ -11,5 +11,6 @@
         public static Move move = new Move();
         public static Interacts interact = new Interacts();
         public static ExtraGeneration extra = new ExtraGeneration();
+        public static Enemy enemy = new Enemy();
     }
 }

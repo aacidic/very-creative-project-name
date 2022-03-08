@@ -23,6 +23,10 @@ namespace very_creative_project_name
                     Console.Write("There is nothing to open!");
                 }
             }
+            else if (interact.Key == ConsoleKey.I)
+            {
+                OpenInventory();
+            }
             Choice();
         }
 
@@ -46,12 +50,12 @@ namespace very_creative_project_name
             }
             if (randomPull == 0)
             {
-                stats.inventory.Add(new Armour());
+                //stats.inventory.Add(new Armour());
                 loot = "a new armour!";
             }
             else if (randomPull == 1)
             {
-                stats.inventory.Add(new Weapon());
+                //stats.inventory.Add(new Weapon());
                 loot = "a new weapon!";
             }
             else if (randomPull >= 2)
@@ -64,6 +68,11 @@ namespace very_creative_project_name
             Console.Write("You obtained " + loot);
             //Sets loot to empty map position
             prop.tileType[stats.y][stats.x] = 1;
+        }
+
+        void OpenInventory()
+        {
+            Console.SetCursorPosition(0, 110);
         }
     }
 }

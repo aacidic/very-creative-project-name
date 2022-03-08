@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace very_creative_project_name
 {
     class Properties : Map
     {
         public int[][] tileType = new int[44][];
+        public List<Point> enemy = new List<Point>();
 
         /// <summary>
         /// tileType Broken down:
