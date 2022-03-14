@@ -18,6 +18,15 @@ namespace very_creative_project_name
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="health">Player Health</param>
+        /// <param name="x">Player X Position</param>
+        /// <param name="y">Player Y Position</param>
+        /// <param name="dodge">Player Dodge Chance</param>
+        /// <param name="crit">Player Crit Chance</param>
+        /// <param name="item">Individual item to add to inventory</param>
         public Stat(int health, int x, int y, int dodge, int crit, Item item)
         {
             this.health = health;

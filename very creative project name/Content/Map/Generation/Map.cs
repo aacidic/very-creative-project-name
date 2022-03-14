@@ -39,8 +39,14 @@ namespace very_creative_project_name
                     }
 
                     //Makes the for loop go an extra iteration if overlap is found
-                    if (regenerate) { i -= 1; }
-                    else { roomStorage.Add(currentRoom); }
+                    if (regenerate) 
+                    { 
+                        i -= 1; 
+                    }
+                    else 
+                    { 
+                        roomStorage.Add(currentRoom); 
+                    }
                 }
                 //Only used for first rectangle to skip checks for above
                 else if (i == 0)
@@ -74,11 +80,13 @@ namespace very_creative_project_name
                 }
                 prop.SetRoom(roomStorage[i]);
             }
+            
             extra.Enemy();
             extra.Loot();
-            disp.DrawMap(prop.tileType);
+            disp.DrawMap();
             extra.Player();
             extra.ExitRoom();
+            disp.DrawEnemies(prop.enemy);
 
             //Starts gameplay sequence
             core.Choice();
@@ -94,7 +102,10 @@ namespace very_creative_project_name
             {
                 return true;
             }
-            else { return false; }
+            else 
+            { 
+                return false; 
+            }
         }
         
     }

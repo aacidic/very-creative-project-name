@@ -10,7 +10,7 @@ namespace very_creative_project_name
             (stats.x, stats.y) = (pos[0], pos[1]);
             disp.DrawPlayer(stats.x, stats.y);
         }
-
+        
         public void Loot()
         {
             if (splitSeed[3] > 0)
@@ -31,7 +31,6 @@ namespace very_creative_project_name
                 {
                     int[] pos = IsInRoom();
                     prop.enemy.Add(new Point(pos[0], pos[1]));
-                    prop.SetExtra(pos[0], pos[1], 2);
                 }
             }
         }
@@ -42,6 +41,10 @@ namespace very_creative_project_name
             prop.SetExtra(pos[0], pos[1], 4);
         }
 
+        /// <summary>
+        /// Checks positions inside a room
+        /// </summary>
+        /// <returns>Returns an array-based coordinate inside one of the generated rooms</returns>
         public int[] IsInRoom()
         {
             //Runs through to check if random positions are within rooms, returns one position each iteration

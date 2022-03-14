@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
@@ -48,11 +49,11 @@ namespace very_creative_project_name
 
         #region UI with input/dynamic UI
         //Draws the map from tileType in Properties - check there for defining types
-        public void DrawMap(int[][] fullMap)
+        public void DrawMap()
         {           
-            for (int y = 0; y < fullMap.Length; y++)
+            for (int y = 0; y < prop.tileType.Length; y++)
             {
-                for (int x = 0; x < fullMap[y].Length; x++)
+                for (int x = 0; x < prop.tileType[y].Length; x++)
                 {
                     Console.Write(Char(prop.tileType[y][x]));
                     edit.Colour("Blue");
@@ -66,28 +67,68 @@ namespace very_creative_project_name
         int lastX, lastY = 1;
         public void DrawPlayer(int x, int y)
         {
-            //Prevents movement if console is not correct size
+            //if check prevents movement if console is not correct size
             if (Console.WindowWidth == 200 && Console.WindowHeight == 50)
             {
                 edit.Colour("Green");
                 Console.SetCursorPosition(x, y);
                 Console.Write("■");
                 edit.Colour("Blue");
+                //Prevents filling player if they haven't moved positions but pressed a movement key
                 if (lastX != x || lastY != y)
                 {
                     FillLast(lastX, lastY);
                     (lastX, lastY) = (x, y);
                 }
-                Console.SetCursorPosition(0, 0);
             }
         }
 
+        //Update the previous player position to return to normal
         public void FillLast(int x, int y)
         {
             Console.SetCursorPosition(x, y);
             Console.Write(Char(prop.tileType[y][x]));
         }
 
+        //Initial enemy display after generation
+        public void DrawEnemies(List<Point> enemy)
+        {
+            foreach (Point pos in enemy)
+            {
+                Console.SetCursorPosition(pos.x, pos.y);
+                Console.Write(Char(2));
+            }
+        }
+
+        //Updates enemy position on move
+        public void UpdateEnemy(Point enemy, int dir, bool xDir)
+        {
+            if (xDir)
+            {
+                Console.SetCursorPosition(enemy.x + dir, enemy.y);
+                Console.Write(Char(2));
+                Console.SetCursorPosition(enemy.x, enemy.y);
+                Console.Write(Char(prop.tileType[enemy.y][enemy.x]));
+            }
+            else
+            {
+                Console.SetCursorPosition(enemy.x, enemy.y + dir);
+                Console.Write(Char(2));
+                Console.SetCursorPosition(enemy.x, enemy.y);
+                Console.Write(Char(prop.tileType[enemy.y][enemy.x]));
+            }
+        }
+
+        /// <summary>
+        /// Returns char based on int input - tiletype in Properties also include ID definitions
+        /// Type 0 = Unwalkable space in map
+        /// Type 1 = Walkable space in map
+        /// Type 2 = Enemy spawn in room
+        /// Type 3 = Interactable in room
+        /// Type 4 = Floor exit
+        /// </summary>
+        /// <param name="type">Character type to return</param>
+        /// <returns></returns>
         public char Char(int type)
         {
             if (type == 0)
@@ -114,22 +155,10 @@ namespace very_creative_project_name
                 return '?';
             }
         }
+        #endregion
 
-        public void UpdateEnemyX(int x, int y, int dir)
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write(Char(prop.tileType[y][x]));
-            Console.SetCursorPosition(x + dir, y);
-            Console.Write(Char(prop.tileType[y][x + dir]));
-        }
-        public void UpdateEnemyY(int x, int y, int dir)
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write(Char(prop.tileType[y][x]));
-            Console.SetCursorPosition(x, y + dir);
-            Console.Write(Char(prop.tileType[y + dir][x]));
-        }
-
+        #region Other
+        //Displays all stats - half assigned as str half as colour to dynamically update in for loop
         public string[] Stats()
         {
             string[] stat = new string[8];

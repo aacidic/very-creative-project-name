@@ -42,7 +42,12 @@ namespace very_creative_project_name
             }
         }
 
-        //Sets any extra tile types by individual coordinates
+        /// <summary>
+        /// Sets any extra tile types by individual coordinates
+        /// </summary>
+        /// <param name="x">X position of tile</param>
+        /// <param name="y">Y position of tile</param>
+        /// <param name="tile">Tile type as int</param>
         public void SetExtra(int x, int y, int tile)
         {
             tileType[y][x] = tile;

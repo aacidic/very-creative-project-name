@@ -14,38 +14,30 @@ namespace very_creative_project_name
             }
             return false;
         }
-        public void MoveX(Point pos)
+        public void MoveX(Point pos, int i)
         {
             if (stats.x > pos.x && prop.tileType[pos.y][pos.x + 1] == 1)
             {
-                prop.tileType[pos.y][pos.x] = 1;
-                disp.UpdateEnemyX(pos.x, pos.y, 0);
-                prop.tileType[pos.y][pos.x + 1] = 2;
-                disp.UpdateEnemyX(pos.x, pos.y, 1);
+                prop.enemy[i].x += 1;
+                disp.UpdateEnemy(pos, 1, true);
             }
             else if (stats.x < pos.x && prop.tileType[pos.y][pos.x - 1] == 1)
             {
-                prop.tileType[pos.y][pos.x] = 1;
-                disp.UpdateEnemyX(pos.x, pos.y, 0);
-                prop.tileType[pos.y][pos.x - 1] = 2;
-                disp.UpdateEnemyX(pos.x, pos.y, -1);
+                prop.enemy[i].x -= 1;
+                disp.UpdateEnemy(pos, -1, true);
             }
         }
-        public void MoveY(Point pos)
+        public void MoveY(Point pos, int i)
         {
             if (stats.y > pos.y && prop.tileType[pos.y + 1][pos.x] == 1)
             {
-                prop.tileType[pos.y][pos.x] = 1;
-                disp.UpdateEnemyY(pos.x, pos.y, 0);
-                prop.tileType[pos.y + 1][pos.x] = 2;
-                disp.UpdateEnemyY(pos.x, pos.y, 1);
+                prop.enemy[i].y += 1;
+                disp.UpdateEnemy(pos, 1, false);
             }
             else if (stats.y < pos.y && prop.tileType[pos.y - 1][pos.x] == 1)
             {
-                prop.tileType[pos.y][pos.x] = 1;
-                disp.UpdateEnemyY(pos.x, pos.y, 0);
-                prop.tileType[pos.y - 1][pos.x] = 2;
-                disp.UpdateEnemyY(pos.x, pos.y, -1);
+                prop.enemy[i].y -= 1;
+                disp.UpdateEnemy(pos, -1, false);
             }
         }
     }
