@@ -12,7 +12,7 @@ namespace very_creative_project_name
                 "\nChanging this has a high risk of affecting or breaking your gameplay experience!" +
                 "\nNOTE: If you ever experience this issue, it can be fixed if you re-open the game or by pressing the map resize key.");
             edit.Colour("Blue");
-            disp.Help();
+            disp.Help(false);
             Console.ReadLine();
 
             //Clear console and resize window

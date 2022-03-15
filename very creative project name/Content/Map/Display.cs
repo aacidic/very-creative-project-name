@@ -7,7 +7,9 @@ namespace very_creative_project_name
     class Display
     {
         #region General UI (Non-dynamic fields)
-        //Creates border at bottom of the map to separate for text UI
+        /// <summary>
+        /// Creates border at bottom of the map to separate for text UI
+        /// </summary>
         public void Border()
         {
             Console.SetCursorPosition(0, 44);
@@ -17,15 +19,23 @@ namespace very_creative_project_name
             }
         }
 
-        public void Help()
+        /// <summary>
+        /// Displays the full help text with icons and split controls
+        /// </summary>
+        public void Help(bool inGame)
         {
-            string[] controls = new string[] { "WASD", "E", "M", "H", "ESC" };
-            string[] ctrlsText = new string[] { "Move around", "Interact with objects", "Resize your map", "Open up the help menu", "Save and quit" };
+            string[] controls = new string[] { "WASD", "E", "M", "H", "I", "Q", "ESC" };
+            string[] ctrlsText = new string[] { "Move around", "Interact with objects", "Resize your map", "Open up the help menu", "Open your inventory", "Attack your enemies", "Save and quit" };
             string[] icons = new string[] { "¤", "■" };
             string[] iconText = new string[] { "Loot chest", "An enemy, stay away from it!"};
-            Console.SetCursorPosition(0, 6);
-            Console.Write("Before you start the game, this is also a quick guide!\nIn-game you will be able to press H for a simplified version of the controls and map elements.");
-            Console.SetCursorPosition(0, 8);
+            if (!inGame)
+            {
+                Console.Write("Before you start the game, this is also a quick guide!\nIn-game you will be able to press ");
+                edit.Colour("White");
+                Console.Write("[H]");
+                edit.Colour("Blue");
+                Console.Write(" for a simplified version of the controls and map elements.\n");
+            }
             for (int i = 0; i < controls.Length; i++)
             {
                 Console.Write("[");
@@ -33,6 +43,10 @@ namespace very_creative_project_name
                 Console.Write(controls[i]);
                 edit.Colour("Blue");
                 Console.Write("] " + ctrlsText[i] + " ");
+                if (i == 3)
+                {
+                    Console.Write("\n");
+                }
             }
             Console.Write("\n");
             for (int i = 0; i < icons.Length; i++)
@@ -48,7 +62,9 @@ namespace very_creative_project_name
         #endregion
 
         #region UI with input/dynamic UI
-        //Draws the map from tileType in Properties - check there for defining types
+        /// <summary>
+        /// Draws the map from tileType in Properties - check there for defining types
+        /// </summary>
         public void DrawMap()
         {           
             for (int y = 0; y < prop.tileType.Length; y++)
@@ -59,31 +75,30 @@ namespace very_creative_project_name
                     edit.Colour("Blue");
                 }
             }
-            //Draws border below the map after map itself
             Border();
         }
 
-        //Draws the player from the stat position
         int lastX, lastY = 1;
+        /// <summary>
+        /// Draws the player from the stat position
+        /// </summary>
         public void DrawPlayer(int x, int y)
         {
-            //if check prevents movement if console is not correct size
-            if (Console.WindowWidth == 200 && Console.WindowHeight == 50)
+            edit.Colour("Green");
+            Console.SetCursorPosition(x, y);
+            Console.Write("■");
+            edit.Colour("Blue");
+            //Prevents filling player if they haven't moved positions but pressed a movement key
+            if (lastX != x || lastY != y)
             {
-                edit.Colour("Green");
-                Console.SetCursorPosition(x, y);
-                Console.Write("■");
-                edit.Colour("Blue");
-                //Prevents filling player if they haven't moved positions but pressed a movement key
-                if (lastX != x || lastY != y)
-                {
-                    FillLast(lastX, lastY);
-                    (lastX, lastY) = (x, y);
-                }
+                FillLast(lastX, lastY);
+                (lastX, lastY) = (x, y);
             }
         }
 
-        //Update the previous player position to return to normal
+        /// <summary>
+        /// Update the previous player position to return to normal
+        /// </summary>
         public void FillLast(int x, int y)
         {
             Console.SetCursorPosition(x, y);
@@ -100,35 +115,39 @@ namespace very_creative_project_name
             }
         }
 
-        //Updates enemy position on move
+        /// <summary>
+        /// Updates console display of moved enemy
+        /// </summary>
+        /// <param name="enemy">Enemy position</param>
+        /// <param name="dir">Directional value change for cursor position</param>
+        /// <param name="xDir">If movement is horizontal</param>
         public void UpdateEnemy(Point enemy, int dir, bool xDir)
         {
             if (xDir)
             {
-                Console.SetCursorPosition(enemy.x + dir, enemy.y);
-                Console.Write(Char(2));
                 Console.SetCursorPosition(enemy.x, enemy.y);
+                Console.Write(Char(2));
+                Console.SetCursorPosition(enemy.x - dir, enemy.y);
                 Console.Write(Char(prop.tileType[enemy.y][enemy.x]));
             }
             else
             {
-                Console.SetCursorPosition(enemy.x, enemy.y + dir);
-                Console.Write(Char(2));
                 Console.SetCursorPosition(enemy.x, enemy.y);
+                Console.Write(Char(2));
+                Console.SetCursorPosition(enemy.x, enemy.y - dir);
                 Console.Write(Char(prop.tileType[enemy.y][enemy.x]));
             }
         }
 
         /// <summary>
-        /// Returns char based on int input - tiletype in Properties also include ID definitions
-        /// Type 0 = Unwalkable space in map
-        /// Type 1 = Walkable space in map
-        /// Type 2 = Enemy spawn in room
-        /// Type 3 = Interactable in room
-        /// Type 4 = Floor exit
+        /// Type 0: Out of bounds
+        /// Type 1: Player walkable
+        /// Type 2: Enemy
+        /// Type 3: Chest
+        /// Type 4: Exit (To be implemented)
         /// </summary>
         /// <param name="type">Character type to return</param>
-        /// <returns></returns>
+        /// <returns>Char returns character from int type</returns>
         public char Char(int type)
         {
             if (type == 0)
@@ -152,7 +171,7 @@ namespace very_creative_project_name
             //This means one of the tiletypes are invalid or an incorrect number
             else
             {
-                return '?';
+                return (char)type;
             }
         }
         #endregion
