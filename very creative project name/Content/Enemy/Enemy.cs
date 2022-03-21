@@ -18,12 +18,12 @@ namespace very_creative_project_name
                 if (InMoveRange(pos))
                 {
                     //Enemy movement
-                    int dir = r.Next(0, 3);
-                    if (dir == 0)
+                    int dir = r.Next(0, 9);
+                    if (dir >= 0 && dir <= 4)
                     {
                         enemy.MoveX(pos, i);
                     }
-                    else if (dir == 1)
+                    else if (dir > 4 && dir < 9)
                     {
                         enemy.MoveY(pos, i);
                     }

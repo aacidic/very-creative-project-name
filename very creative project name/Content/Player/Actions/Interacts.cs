@@ -1,6 +1,6 @@
 ﻿using System;
 using static very_creative_project_name.Ref;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace very_creative_project_name
 {
@@ -22,7 +22,7 @@ namespace very_creative_project_name
             {
                 if (prop.tileType[stats.y][stats.x] == 3)
                 {
-                    OpenLoot();
+                    _ = OpenLootAsync();
                 }
                 else
                 {
@@ -40,7 +40,10 @@ namespace very_creative_project_name
             }
             else if (interact.Key == ConsoleKey.Q)
             {
-                Attack();
+                if (stats.canAttack)
+                {
+                    _ = AttackAsync();
+                }
             }
             Choice();
         }
@@ -58,7 +61,7 @@ namespace very_creative_project_name
         /// <summary>
         /// Allows the player to open the chests within the map
         /// </summary>
-        void OpenLoot()
+        async Task OpenLootAsync()
         {
             int randomPull = r.Next(0, 10);
             string loot = "";
@@ -66,7 +69,7 @@ namespace very_creative_project_name
             for (int i = 0; i < 5; i++)
             {
                 Console.Write(".");
-                Thread.Sleep(200);
+                await Task.Delay(200);
             }
             if (randomPull == 0)
             {
@@ -84,7 +87,7 @@ namespace very_creative_project_name
                 stats.gold += gold;
                 loot = gold.ToString() + " gold!";
             }
-            Thread.Sleep(400);
+            await Task.Delay(400);
             Console.Write("You obtained " + loot);
             //Sets loot to empty map position
             prop.tileType[stats.y][stats.x] = 1;
@@ -119,16 +122,86 @@ namespace very_creative_project_name
         }
 
         /// <summary>
-        /// Lets the player attack - To be implemented!
+        /// Allows the player to attack
         /// </summary>
-        void Attack()
+        async Task AttackAsync()
         {
+            Console.SetCursorPosition(0, 46);
+            string attackText = "Press an arrow key for your attack's direction!";
+            Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (attackText.Length / 2)) + "}", attackText));
             ConsoleKeyInfo key = Console.ReadKey(true);
-            if (key.Key == ConsoleKey.UpArrow && prop.tileType[stats.y + 1][stats.x] == 1)
+            int[] attackPos = AttackPosition(key.Key);
+            bool xDir = false;
+            if (attackPos[2] == 1)
             {
-                Console.SetCursorPosition(stats.x, stats.y - 1);
-                Console.Write("║");
+                xDir = true;
             }
+
+            //Prevents execution of display if positions
+            if (attackPos[0] != 0 && attackPos[1] != 0)
+            {
+                stats.canAttack = false;
+                if (xDir)
+                {
+                    Console.SetCursorPosition(attackPos[0], attackPos[1]);
+                    Console.Write("═");
+                }
+                else
+                {
+                    Console.SetCursorPosition(attackPos[0], attackPos[1]);
+                    Console.Write("║");
+                }
+                await Task.Delay(400);
+                Console.SetCursorPosition(attackPos[0], attackPos[1]);
+                Console.Write(" ");
+
+                int i = 0;
+                foreach (Point enemy in prop.enemy)
+                {
+                    if (attackPos[0] == enemy.x && attackPos[1] == enemy.y)
+                    {
+                        prop.enemy.RemoveAt(i);
+                        Console.Write("a");
+                    }
+                    i++;
+                }
+            }
+            await Task.Delay(200);
+            stats.canAttack = true;
+            DispStats();
+        }
+
+        /// <summary>
+        /// Gets the position of the player to render an attack in the given direction
+        /// </summary>
+        /// <param name="key">Key pressed by player - returns 0 if key is not an arrow key</param>
+        /// <returns>Returns [0],[1] as player positions, [2] is converted to bool to check direction for display</returns>
+        public int[] AttackPosition(ConsoleKey key)
+        {
+            int[] pos = new int[3];
+
+            if (key == ConsoleKey.UpArrow && prop.tileType[stats.y - 1][stats.x] == 1)
+            {
+                (pos[0], pos[1]) = (stats.x, stats.y - 1);
+                pos[2] = 0;
+            }
+            else if (key == ConsoleKey.LeftArrow && prop.tileType[stats.y][stats.x - 1] == 1)
+            {
+                (pos[0], pos[1]) = (stats.x - 1, stats.y);
+                pos[2] = 1;
+            }
+            else if (key == ConsoleKey.DownArrow && prop.tileType[stats.y + 1][stats.x] == 1)
+            {
+                (pos[0], pos[1]) = (stats.x, stats.y + 1);
+                pos[2] = 0;
+            }
+            else if (key == ConsoleKey.RightArrow && prop.tileType[stats.y][stats.x + 1] == 1)
+            {
+                (pos[0], pos[1]) = (stats.x + 1, stats.y);
+                pos[2] = 1;
+            }
+
+            return pos;
         }
     }
 }

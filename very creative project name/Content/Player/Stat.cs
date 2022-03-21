@@ -9,8 +9,9 @@ namespace very_creative_project_name
         public int health;
         public int x, y;
         public int dodgeChance;
-        public int critChance;
+        public bool canAttack;
         public int gold;
+        public bool isAlive;
         public List<Item> inventory;
         
         public Stat()
@@ -25,15 +26,16 @@ namespace very_creative_project_name
         /// <param name="x">Player X Position</param>
         /// <param name="y">Player Y Position</param>
         /// <param name="dodge">Player Dodge Chance</param>
-        /// <param name="crit">Player Crit Chance</param>
+        /// <param name="attack">If player can attack</param>
         /// <param name="item">Individual item to add to inventory</param>
-        public Stat(int health, int x, int y, int dodge, int crit, Item item)
+        public Stat(int health, int x, int y, int dodge, bool attack, bool isAlive, Item item)
         {
             this.health = health;
             this.x = x;
             this.y = y;
             dodgeChance = dodge;
-            critChance = crit;
+            canAttack = attack;
+            this.isAlive = isAlive;
             inventory.Add(item);
         }
     }

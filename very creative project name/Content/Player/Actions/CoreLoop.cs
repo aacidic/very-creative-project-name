@@ -10,35 +10,24 @@ namespace very_creative_project_name
         public ConsoleKey[] movementKeys = new ConsoleKey[] { ConsoleKey.W, ConsoleKey.A, ConsoleKey.S, ConsoleKey.D };
         public ConsoleKey[] interactKeys = new ConsoleKey[] { ConsoleKey.E, ConsoleKey.M, ConsoleKey.I, ConsoleKey.Q, ConsoleKey.H };
 
+        public void SetPlayer()
+        {
+            stats.canAttack = true;
+            stats.health = 10;
+            stats.isAlive = true;
+            Choice();
+        }
+
         public void Choice()
         {
             Console.SetCursorPosition(0, 45);
-            bool alive = true;
-            stats.health = 10;
             ConsoleKeyInfo keyPressed;
-
-            while (alive)
+            while (stats.isAlive)
             {
                 //Attempts to prevent gameplay on resized window - can still crash but most cases prevents
                 if (Console.WindowWidth == 200 && Console.WindowHeight == 50)
                 {
-                    #region Display stats at the bottom line of the window
-                    Console.SetCursorPosition(0, 49);
-                    string[] stats = disp.Stats();
-                    for (int split = 0; split < stats.Length; split++)
-                    {
-                        if (split % 2 == 0)
-                        {
-                            edit.Colour(stats[split]);
-                        }
-                        else
-                        {
-                            Console.Write(string.Format("{0," + ((Console.WindowWidth / 5) + (stats[split].Length / 5)) + "}", stats[split]));
-                        }
-                    }
-                    edit.Colour("Blue");
-                    Console.SetCursorPosition(0, 45);
-                    #endregion
+                    DispStats();
 
                     #region Key press events
                     keyPressed = Console.ReadKey(true);
@@ -74,6 +63,25 @@ namespace very_creative_project_name
                     enemy.Move();
                 }
             }
+        }
+
+        public void DispStats()
+        {
+            Console.SetCursorPosition(0, 49);
+            string[] stats = disp.Stats();
+            for (int split = 0; split < stats.Length; split++)
+            {
+                if (split % 2 == 0)
+                {
+                    edit.Colour(stats[split]);
+                }
+                else
+                {
+                    Console.Write(string.Format("{0," + ((Console.WindowWidth / 5) + (stats[split].Length / 5)) + "}", stats[split]));
+                }
+            }
+            edit.Colour("Blue");
+            Console.SetCursorPosition(0, 45);
         }
     }
 }

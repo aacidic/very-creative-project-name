@@ -127,15 +127,21 @@ namespace very_creative_project_name
             {
                 Console.SetCursorPosition(enemy.x, enemy.y);
                 Console.Write(Char(2));
-                Console.SetCursorPosition(enemy.x - dir, enemy.y);
-                Console.Write(Char(prop.tileType[enemy.y][enemy.x]));
+                if (enemy.x != enemy.x - dir)
+                {
+                    Console.SetCursorPosition(enemy.x - dir, enemy.y);
+                    Console.Write(Char(prop.tileType[enemy.y][enemy.x]));
+                }
             }
             else
             {
                 Console.SetCursorPosition(enemy.x, enemy.y);
                 Console.Write(Char(2));
-                Console.SetCursorPosition(enemy.x, enemy.y - dir);
-                Console.Write(Char(prop.tileType[enemy.y][enemy.x]));
+                if (enemy.y != enemy.y - dir)
+                {
+                    Console.SetCursorPosition(enemy.x, enemy.y - dir);
+                    Console.Write(Char(prop.tileType[enemy.y][enemy.x]));
+                }
             }
         }
 
@@ -185,8 +191,16 @@ namespace very_creative_project_name
             stat[1] = stats.gold.ToString() + " Gold";
             stat[2] = "Green";
             stat[3] = stats.health.ToString() + " Health";
-            stat[4] = "DarkRed";
-            stat[5] = stats.critChance.ToString() + " Critical Chance";
+            if (stats.canAttack == false)
+            {
+                stat[4] = "Red";
+                stat[5] = "Attack on Cooldown";
+            }
+            else
+            {
+                stat[4] = "Green";
+                stat[5] = "    Can attack!   ";
+            }
             stat[6] = "Magenta";
             stat[7] = stats.dodgeChance.ToString() + " Dodge Chance";
             return stat;

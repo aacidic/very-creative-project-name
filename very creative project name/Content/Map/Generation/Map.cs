@@ -89,7 +89,7 @@ namespace very_creative_project_name
             disp.DrawEnemies(prop.enemy);
 
             //Starts gameplay sequence
-            core.Choice();
+            core.SetPlayer();
         }
 
         //Overlap check - checks if rectangles are overlapping by checking corner positions
