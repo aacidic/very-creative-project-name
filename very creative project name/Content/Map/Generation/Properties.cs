@@ -17,7 +17,9 @@ namespace very_creative_project_name
         /// Type 4: Exit (To be implemented)
         /// </summary>
 
-        //SetBase initialises the full array and sets all elements of tileType to 0 as the baseline
+        /// <summary>
+        /// SetBase initialises the full array and sets all elements of tileType to 0 as the baseline
+        /// </summary>
         public void SetBase()
         {
             for (int y = 0; y < tileType.Length; y++)
@@ -30,7 +32,10 @@ namespace very_creative_project_name
             }
         }
 
-        //SetRoom sets all room positions by coordinates as tileType 1
+        /// <summary>
+        /// Sets all room positions by room coordinates as tileType 1
+        /// </summary>
+        /// <param name="rect">Room information</param>
         public void SetRoom(Room rect)
         {
             for (int y = rect.y; y < rect.y + rect.height; y++)

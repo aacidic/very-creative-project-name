@@ -38,6 +38,7 @@ namespace very_creative_project_name
                         bool moveSuccess = move.Player(keyPressed);
                         if (!moveSuccess)
                         {
+                            Console.SetCursorPosition(0, 45);
                             Console.Write("You cannot move there!");
                         }
                         //Clears line 45+ of console window
@@ -45,7 +46,7 @@ namespace very_creative_project_name
                         {
                             for (int x = 0; x < 200; x++)
                             {
-                                for (int y = 45; y < 48; y++)
+                                for (int y = 45; y < 49; y++)
                                 {
                                     Console.SetCursorPosition(x, y);
                                     Console.Write(' ');
@@ -53,14 +54,24 @@ namespace very_creative_project_name
                             }
                         }
                     }
+
                     //Checks if player key press is included in interact key presses
-                    else if (Array.Exists(interactKeys, key => key == keyPressed.Key))
+                    if (Array.Exists(interactKeys, key => key == keyPressed.Key))
                     {
                         interact.Branch(keyPressed);
                     }
+                    enemy.Move();
                     #endregion
 
-                    enemy.Move();
+                }
+                else
+                {
+                    keyPressed = Console.ReadKey(true);
+
+                    if (keyPressed.Key == ConsoleKey.M)
+                    {
+                        interact.Branch(keyPressed);
+                    }
                 }
             }
         }

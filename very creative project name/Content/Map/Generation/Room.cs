@@ -10,7 +10,6 @@ namespace very_creative_project_name
         public int height;
         public int centerX { get { return x + (width / 2); } }
         public int centerY { get { return y + (height / 2); } }
-        //Use the centers later for room connection
         public int minSize = 7;
         public int maxSize = 15;
 

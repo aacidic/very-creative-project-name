@@ -15,19 +15,25 @@ namespace very_creative_project_name
             int i = 0;
             foreach (Point pos in prop.enemy)
             {
-                if (InMoveRange(pos))
+                if (InMoveRange(pos) && !CanAttack(pos))
                 {
                     //Enemy movement
                     int dir = r.Next(0, 9);
                     if (dir >= 0 && dir <= 4)
                     {
-                        enemy.MoveX(pos, i);
+                        enemy.MoveX(pos, i, false);
                     }
                     else if (dir > 4 && dir < 9)
                     {
-                        enemy.MoveY(pos, i);
+                        enemy.MoveY(pos, i, false);
                     }
                 }
+
+                if (CanAttack(pos))
+                {
+
+                }
+
                 i += 1;
             }
         }
@@ -53,8 +59,8 @@ namespace very_creative_project_name
         /// <returns>true if in range</returns>
         public bool CanAttack(Point pos)
         {
-            if ((pos.x + 2 > stats.x && pos.x - 2 > stats.x) ||
-                 (pos.y + 1 > stats.y && pos.y - 1 > stats.y))
+            if ((pos.x + 4 > stats.x || pos.x - 4 > stats.x) &&
+                 (pos.y + 2 > stats.y || pos.y - 2 > stats.y))
             {
                 return true;
             }
@@ -92,7 +98,7 @@ namespace very_creative_project_name
         /// </summary>
         /// <param name="pos">enemy[i] position</param>
         /// <param name="i">The enemy number</param>
-        public void MoveX(Point pos, int i)
+        public void MoveX(Point pos, int i, bool invert)
         {
             int dir = 0;
             if (stats.x > pos.x)
@@ -102,6 +108,11 @@ namespace very_creative_project_name
             else if (stats.x < pos.x)
             {
                 dir = -1;
+            }
+
+            if (invert)
+            {
+                dir *= -1;
             }
 
             if (ValidMove(pos, i, dir, true))
@@ -115,7 +126,7 @@ namespace very_creative_project_name
         /// </summary>
         /// <param name="pos">enemy[i] position</param>
         /// <param name="i">The enemy number</param>
-        public void MoveY(Point pos, int i)
+        public void MoveY(Point pos, int i, bool invert)
         {
             int dir = 0;
             if (stats.y > pos.y)
@@ -125,6 +136,11 @@ namespace very_creative_project_name
             else if (stats.y < pos.y)
             {
                 dir = -1;
+            }
+
+            if (invert)
+            {
+                dir *= -1;
             }
 
             if (ValidMove(pos, i, dir, false))

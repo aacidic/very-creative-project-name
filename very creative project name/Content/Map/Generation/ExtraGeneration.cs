@@ -4,6 +4,21 @@ namespace very_creative_project_name
 {
     class ExtraGeneration : Map
     {
+        /// <summary>
+        /// Used to call the rest of the extra generation functions as one
+        /// </summary>
+        public void ExtraGenerate()
+        {
+            ExitRoom();
+            Enemy();
+            Loot();
+            disp.DrawMap();
+            Player();
+        }
+        
+        /// <summary>
+        /// Generates player location
+        /// </summary>
         public void Player()
         {
             int[] pos = IsInRoom();
@@ -11,6 +26,9 @@ namespace very_creative_project_name
             disp.DrawPlayer(stats.x, stats.y);
         }
         
+        /// <summary>
+        /// Generates all loot positions
+        /// </summary>
         public void Loot()
         {
             if (splitSeed[3] > 0)
@@ -23,6 +41,9 @@ namespace very_creative_project_name
             }
         }
 
+        /// <summary>
+        /// Generates all enemy positions
+        /// </summary>
         public void Enemy()
         {
             if (splitSeed[2] > 0)
@@ -30,11 +51,14 @@ namespace very_creative_project_name
                 for (int i = 0; i < splitSeed[2]; i++)
                 {
                     int[] pos = IsInRoom();
-                    prop.enemy.Add(new Point(pos[0], pos[1]));
+                    prop.enemy.Add(new Point(pos[0], pos[1], 5));
                 }
             }
         }
 
+        /// <summary>
+        /// Generates map exit location
+        /// </summary>
         public void ExitRoom()
         {
             int[] pos = IsInRoom();

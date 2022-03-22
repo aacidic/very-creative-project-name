@@ -21,4 +21,5 @@
             return item;
         }
     }
+    //Weapons will probably be depreciated in favour of armour and consumables.
 }

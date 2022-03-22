@@ -84,15 +84,21 @@ namespace very_creative_project_name
         /// </summary>
         public void DrawPlayer(int x, int y)
         {
-            edit.Colour("Green");
-            Console.SetCursorPosition(x, y);
-            Console.Write("■");
-            edit.Colour("Blue");
-            //Prevents filling player if they haven't moved positions but pressed a movement key
-            if (lastX != x || lastY != y)
+            if (x == 0 && y == 0)
             {
-                FillLast(lastX, lastY);
-                (lastX, lastY) = (x, y);
+            }
+            else
+            {
+                edit.Colour("Green");
+                Console.SetCursorPosition(x, y);
+                Console.Write("■");
+                edit.Colour("Blue");
+                //Prevents filling player if they haven't moved positions but pressed a movement key
+                if (lastX != x || lastY != y)
+                {
+                    FillLast(lastX, lastY);
+                    (lastX, lastY) = (x, y);
+                }
             }
         }
 
@@ -146,6 +152,44 @@ namespace very_creative_project_name
         }
 
         /// <summary>
+        /// Displays health of the enemy
+        /// </summary>
+        /// <param name="health">Health of the enemy</param>
+        public void EnemyHealth(int health)
+        {
+            string enemyHealth = "Enemy has xxxxx health left";
+            
+            Console.SetCursorPosition(0, 47);
+            Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (enemyHealth.Length / 2)) + "}", enemyHealth));
+
+            Console.SetCursorPosition(96, 47);
+            edit.Colour("Green");
+            for (int i = 0; i < health; i++)
+            {
+                Console.Write("█");
+            }
+            int healthLost = 5 - health;
+            edit.Colour("Red");
+            for (int i = 0; i < healthLost; i++)
+            {
+                Console.Write("█");
+            }
+        }
+
+        /// <summary>
+        /// Updates an individual tile on the map !! THIS WILL UPDATE THE PROPERTY TOO !!
+        /// </summary>
+        /// <param name="x">X position of tile to update</param>
+        /// <param name="y">Y position of tile to update</param>
+        /// <param name="type">The new type of tile for updating</param>
+        public void UpdateTile(int x, int y, int type)
+        {
+            prop.tileType[y][x] = type;
+            Console.SetCursorPosition(x, y);
+            Console.Write(Char(type));
+        }
+
+        /// <summary>
         /// Type 0: Out of bounds
         /// Type 1: Player walkable
         /// Type 2: Enemy
@@ -173,6 +217,11 @@ namespace very_creative_project_name
             {
                 edit.Colour("Cyan");
                 return '¤';
+            }
+            else if (type == 4)
+            {
+                edit.Colour("White");
+                return 'O';
             }
             //This means one of the tiletypes are invalid or an incorrect number
             else

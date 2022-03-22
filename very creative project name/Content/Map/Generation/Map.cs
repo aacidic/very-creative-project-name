@@ -10,6 +10,9 @@ namespace very_creative_project_name
         public int rooms;
         public bool regenerate;
 
+        /// <summary>
+        /// Main function for generating the map layout
+        /// </summary>
         public void Generate()
         {
             //Rooms can be anywhere from 9 to 16 based on the 6th number in the seed 
@@ -80,19 +83,21 @@ namespace very_creative_project_name
                 }
                 prop.SetRoom(roomStorage[i]);
             }
-            
-            extra.Enemy();
-            extra.Loot();
-            disp.DrawMap();
-            extra.Player();
-            extra.ExitRoom();
+
+            extra.ExtraGenerate();
             disp.DrawEnemies(prop.enemy);
+            roomStorage.Clear();
 
             //Starts gameplay sequence
             core.SetPlayer();
         }
 
-        //Overlap check - checks if rectangles are overlapping by checking corner positions
+        /// <summary>
+        /// Overlap check - checks if rectangles are overlapping by checking corner positions
+        /// </summary>
+        /// <param name="current">Current room information</param>
+        /// <param name="prior">Previous room information</param>
+        /// <returns></returns>
         public bool IsOverlapping(Room current, Room prior)
         {
             if (current.x < prior.x + prior.width &&

@@ -7,6 +7,7 @@ namespace very_creative_project_name
     class Interacts : CoreLoop
     {
         Random r = new Random();
+        int openingLootState = 0;
 
         /// <summary>
         /// Branch for all interact keys, routes to different functions based on pressed key parsed in
@@ -22,7 +23,32 @@ namespace very_creative_project_name
             {
                 if (prop.tileType[stats.y][stats.x] == 3)
                 {
+                    openingLootState += 1;
                     _ = OpenLootAsync();
+                }
+                else if (prop.tileType[stats.y][stats.x] == 4)
+                {
+                    Console.SetCursorPosition(0, 45);
+                    if (prop.enemy.Count == 0)
+                    {
+                        Console.Write("Are you sure you want to exit this floor? Press E to confirm.");
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        if (key.Key != ConsoleKey.E)
+                        {
+                            Console.SetCursorPosition(0, 46);
+                            Console.Write("Very well.");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            prop.enemy.Clear();
+                            seed.GenNew();
+                        }
+                    }
+                    else
+                    {
+                        Console.Write("You wish to leave without eliminating your foes? Come back when you do!");
+                    }
                 }
                 else
                 {
@@ -63,34 +89,45 @@ namespace very_creative_project_name
         /// </summary>
         async Task OpenLootAsync()
         {
-            int randomPull = r.Next(0, 10);
-            string loot = "";
-            Console.Write("Opening chest");
-            for (int i = 0; i < 5; i++)
+            if (openingLootState == 1)
             {
-                Console.Write(".");
-                await Task.Delay(200);
+                int[] chestPos = new int[2] { stats.x, stats.y };
+                int randomPull = r.Next(0, 10);
+                string loot = "";
+                Console.Write("Opening chest");
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.SetCursorPosition(i + "Opening Chest".Length, 45);
+                    Console.Write(".");
+                    await Task.Delay(200);
+                }
+                if (randomPull == 0)
+                {
+                    //stats.inventory.Add(new Armour());
+                    loot = "a new armour!";
+                }
+                else if (randomPull == 1)
+                {
+                    //stats.inventory.Add(new Weapon());
+                    loot = "a new weapon!";
+                }
+                else if (randomPull >= 2)
+                {
+                    int gold = randomPull * r.Next(1, 30);
+                    stats.gold += gold;
+                    loot = gold.ToString() + " gold!";
+                }
+                await Task.Delay(400);
+                Console.Write("You obtained " + loot);
+                //Sets loot to empty map position
+                disp.UpdateTile(chestPos[0], chestPos[1], 1);
+                openingLootState = 0;
             }
-            if (randomPull == 0)
+            else
             {
-                //stats.inventory.Add(new Armour());
-                loot = "a new armour!";
+                Console.SetCursorPosition(0, 46);
+                Console.Write("You can't open the same chest twice!");
             }
-            else if (randomPull == 1)
-            {
-                //stats.inventory.Add(new Weapon());
-                loot = "a new weapon!";
-            }
-            else if (randomPull >= 2)
-            {
-                int gold = randomPull * r.Next(1,30);
-                stats.gold += gold;
-                loot = gold.ToString() + " gold!";
-            }
-            await Task.Delay(400);
-            Console.Write("You obtained " + loot);
-            //Sets loot to empty map position
-            prop.tileType[stats.y][stats.x] = 1;
         }
 
         /// <summary>
@@ -137,7 +174,7 @@ namespace very_creative_project_name
                 xDir = true;
             }
 
-            //Prevents execution of display if positions
+            //Prevents execution of display if position = 0
             if (attackPos[0] != 0 && attackPos[1] != 0)
             {
                 stats.canAttack = false;
@@ -154,14 +191,27 @@ namespace very_creative_project_name
                 await Task.Delay(400);
                 Console.SetCursorPosition(attackPos[0], attackPos[1]);
                 Console.Write(" ");
+                disp.DrawPlayer(stats.x, stats.y);
 
                 int i = 0;
                 foreach (Point enemy in prop.enemy)
                 {
                     if (attackPos[0] == enemy.x && attackPos[1] == enemy.y)
                     {
-                        prop.enemy.RemoveAt(i);
-                        Console.Write("a");
+                        enemy.health -= 1;
+                        if (enemy.health <= 0)
+                        {
+                            string enemyDeath = "The enemy has now perished!";
+                            prop.enemy.RemoveAt(i);
+                            Console.SetCursorPosition(0, 47);
+                            Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (enemyDeath.Length / 2)) + "}", enemyDeath));
+                            stats.canAttack = true;
+                        }
+                        else
+                        {
+                            disp.EnemyHealth(enemy.health);
+                            disp.UpdateEnemy(enemy, 0, false);
+                        }
                     }
                     i++;
                 }

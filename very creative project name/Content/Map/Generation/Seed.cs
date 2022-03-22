@@ -8,6 +8,17 @@ namespace very_creative_project_name
         public Random random = new Random();
         public static int seed;
         public static int[] splitSeed;
+        /// <summary>
+        /// Generates a seed - is currently only used for the listed functionalities below
+        /// </summary>
+        /// <remarks>
+        ///     <para>
+        ///         Seed digit[2] is used for the amount of enemies
+        ///         Seed digit[3] is used for the amount of loot
+        ///         Seed digit[4] influences the connected paths of the map
+        ///         Seed digit[5] influences the number of rooms
+        ///     </para>
+        /// </remarks>
         public void GenSeed()
         {
             char[] charSplitSeed;
@@ -31,6 +42,13 @@ namespace very_creative_project_name
                 int.TryParse(charSplitSeed[i].ToString(), out splitSeed[i]);
             }
            
+            Map map = new Map();
+            map.Generate();
+        }
+
+        //Modify this later if time! This should include some form of enemy and loot scaling as this is ONLY called after exiting floors!
+        public void GenNew()
+        {
             Map map = new Map();
             map.Generate();
         }
