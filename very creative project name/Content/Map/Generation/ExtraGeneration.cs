@@ -4,6 +4,7 @@ namespace very_creative_project_name
 {
     class ExtraGeneration : Map
     {
+
         /// <summary>
         /// Used to call the rest of the extra generation functions as one
         /// </summary>
@@ -31,13 +32,12 @@ namespace very_creative_project_name
         /// </summary>
         public void Loot()
         {
-            if (splitSeed[3] > 0)
+            int[] lootRange = map.ScaleRange();
+            int loot = r.Next(lootRange[0], lootRange[1]);
+            for (int i = 0; i < loot; i++)
             {
-                for (int i = 0; i < splitSeed[3]; i++)
-                {
-                    int[] pos = IsInRoom();
-                    prop.SetExtra(pos[0], pos[1], 3);
-                }
+                int[] pos = IsInRoom();
+                prop.SetExtra(pos[0], pos[1], 3);
             }
         }
 
@@ -46,13 +46,12 @@ namespace very_creative_project_name
         /// </summary>
         public void Enemy()
         {
-            if (splitSeed[2] > 0)
+            int[] enemyRange = map.ScaleRange();
+            int enemies = r.Next(enemyRange[0], enemyRange[1]);
+            for (int i = 0; i < enemies; i++)
             {
-                for (int i = 0; i < splitSeed[2]; i++)
-                {
-                    int[] pos = IsInRoom();
-                    prop.enemy.Add(new Point(pos[0], pos[1], 5));
-                }
+                int[] pos = IsInRoom();
+                prop.enemy.Add(new Point(pos[0], pos[1], 5));
             }
         }
 
@@ -78,8 +77,8 @@ namespace very_creative_project_name
             {
                 foreach (Room room in roomStorage)
                 {
-                    x = random.Next(0, 200);
-                    y = random.Next(0, 44);
+                    x = r.Next(0, 200);
+                    y = r.Next(0, 44);
                     if (x > room.x && x < room.x + room.width)
                     {
                         if (y > room.y && y < room.y + room.height)

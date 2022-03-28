@@ -19,7 +19,8 @@ namespace very_creative_project_name
             Console.CursorVisible = false;
             Console.SetWindowSize(200, 50);
             Console.Clear();
-            seed.GenSeed();
+            map.Generate();
+            
         }
     }
 }

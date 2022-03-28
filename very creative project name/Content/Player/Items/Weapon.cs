@@ -1,5 +1,6 @@
 ﻿namespace very_creative_project_name
 {
+    #region Weapons have been depreciated based on the combat system.
     class Weapon : Item
     {
         public int Damage { get; set; }
@@ -21,5 +22,5 @@
             return item;
         }
     }
-    //Weapons will probably be depreciated in favour of armour and consumables.
+    #endregion
 }

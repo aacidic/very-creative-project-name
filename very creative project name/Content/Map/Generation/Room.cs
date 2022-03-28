@@ -10,16 +10,18 @@ namespace very_creative_project_name
         public int height;
         public int centerX { get { return x + (width / 2); } }
         public int centerY { get { return y + (height / 2); } }
-        public int minSize = 7;
-        public int maxSize = 15;
+        int minSize = 7;
+        int maxSize = 15;
+
+        Random r = new Random();
 
         public Room()
         {
             //----> if time, try to find out how to use seed to do this instead of random number! perlin
-            width = 2 * random.Next(minSize, maxSize);
-            height = random.Next(minSize, maxSize);
-            x = random.Next(1, Console.WindowWidth - width - 6);
-            y = random.Next(1, Console.WindowHeight - height - 6);
+            width = 2 * r.Next(minSize, maxSize);
+            height = r.Next(minSize, maxSize);
+            x = r.Next(1, Console.WindowWidth - width - 6);
+            y = r.Next(1, Console.WindowHeight - height - 6);
         }
     }
 }

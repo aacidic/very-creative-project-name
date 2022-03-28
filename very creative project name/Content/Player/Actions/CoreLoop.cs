@@ -60,8 +60,8 @@ namespace very_creative_project_name
                     {
                         interact.Branch(keyPressed);
                     }
-                    enemy.Move();
                     #endregion
+                    enemy.Move();
 
                 }
                 else

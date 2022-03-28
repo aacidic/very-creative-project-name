@@ -12,8 +12,9 @@ namespace very_creative_project_name
         public bool canAttack;
         public int gold;
         public bool isAlive;
-        public List<Item> inventory;
-        
+        public int difficulty;
+        public List<Item> inventory = new List<Item>();
+
         public Stat()
         {
 
@@ -28,7 +29,7 @@ namespace very_creative_project_name
         /// <param name="dodge">Player Dodge Chance</param>
         /// <param name="attack">If player can attack</param>
         /// <param name="item">Individual item to add to inventory</param>
-        public Stat(int health, int x, int y, int dodge, bool attack, bool isAlive, Item item)
+        public Stat(int health, int x, int y, int dodge, bool attack, bool isAlive, int diff, Item item)
         {
             this.health = health;
             this.x = x;
@@ -36,6 +37,7 @@ namespace very_creative_project_name
             dodgeChance = dodge;
             canAttack = attack;
             this.isAlive = isAlive;
+            difficulty = diff;
             inventory.Add(item);
         }
     }

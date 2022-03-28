@@ -6,7 +6,6 @@ namespace very_creative_project_name
 {
     class Interacts : CoreLoop
     {
-        Random r = new Random();
         int openingLootState = 0;
 
         /// <summary>
@@ -32,22 +31,12 @@ namespace very_creative_project_name
                     if (prop.enemy.Count == 0)
                     {
                         Console.Write("Are you sure you want to exit this floor? Press E to confirm.");
-                        ConsoleKeyInfo key = Console.ReadKey(true);
-                        if (key.Key != ConsoleKey.E)
-                        {
-                            Console.SetCursorPosition(0, 46);
-                            Console.Write("Very well.");
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            prop.enemy.Clear();
-                            seed.GenNew();
-                        }
+                        ExitFloor(0);
                     }
                     else
                     {
-                        Console.Write("You wish to leave without eliminating your foes? Come back when you do!");
+                        Console.Write("You wish to leave without eliminating your foes? You will have a harder time next floor...");
+                        ExitFloor(1);
                     }
                 }
                 else
@@ -82,6 +71,22 @@ namespace very_creative_project_name
             Console.SetWindowSize(200, 50);
             Console.SetWindowPosition(0, 0);
             Console.CursorVisible = false;
+        }
+
+        void ExitFloor(int increase)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (key.Key != ConsoleKey.E)
+            {
+                Console.SetCursorPosition(0, 46);
+                Console.Write("Very well.");
+            }
+            else
+            {
+                Console.Clear();
+                prop.enemy.Clear();
+                map.GenNew(increase);
+            }
         }
 
         /// <summary>
@@ -150,7 +155,7 @@ namespace very_creative_project_name
                     Console.SetCursorPosition(0, 55);
                     Console.Write("consumables here");
                     Console.SetCursorPosition(0, 60);
-                    Console.Write("weapon list here");
+                    Console.Write("weapon list here {0}", stats.difficulty);
                 }
                 key = Console.ReadKey(true);
                 i += 1;
@@ -194,12 +199,12 @@ namespace very_creative_project_name
                 disp.DrawPlayer(stats.x, stats.y);
 
                 int i = 0;
-                foreach (Point enemy in prop.enemy)
+                foreach (Point iEnemy in prop.enemy)
                 {
-                    if (attackPos[0] == enemy.x && attackPos[1] == enemy.y)
+                    if (attackPos[0] == iEnemy.x && attackPos[1] == iEnemy.y)
                     {
-                        enemy.health -= 1;
-                        if (enemy.health <= 0)
+                        iEnemy.health -= 1;
+                        if (iEnemy.health <= 0)
                         {
                             string enemyDeath = "The enemy has now perished!";
                             prop.enemy.RemoveAt(i);
@@ -209,14 +214,16 @@ namespace very_creative_project_name
                         }
                         else
                         {
-                            disp.EnemyHealth(enemy.health);
-                            disp.UpdateEnemy(enemy, 0, false);
+                            disp.EnemyHealth(iEnemy.health);
+                            disp.UpdateEnemy(iEnemy, 0, false);
+                            int randomAction = r.Next(0, 7);
+                            enemy.Retaliate(iEnemy, i, randomAction);
                         }
                     }
                     i++;
                 }
             }
-            await Task.Delay(200);
+            _ = Task.Delay(200);
             stats.canAttack = true;
             DispStats();
         }

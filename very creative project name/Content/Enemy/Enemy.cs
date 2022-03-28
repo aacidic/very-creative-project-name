@@ -5,8 +5,6 @@ namespace very_creative_project_name
 {
     class Enemy
     {
-        Random r = new Random();
-
         /// <summary>
         /// Iterates through all enemies, then checks range - if true then moves enemy
         /// </summary>
@@ -15,23 +13,17 @@ namespace very_creative_project_name
             int i = 0;
             foreach (Point pos in prop.enemy)
             {
-                if (InMoveRange(pos) && !CanAttack(pos))
+                int randomAction = r.Next(0, 9);
+                if (InMoveRange(pos))
                 {
-                    //Enemy movement
-                    int dir = r.Next(0, 9);
-                    if (dir >= 0 && dir <= 4)
+                    if (randomAction >= 0 && randomAction <= 4)
                     {
-                        enemy.MoveX(pos, i, false);
+                        enemy.MoveX(pos, i);
                     }
-                    else if (dir > 4 && dir < 9)
+                    else if (randomAction > 4 && randomAction < 9)
                     {
-                        enemy.MoveY(pos, i, false);
+                        enemy.MoveY(pos, i);
                     }
-                }
-
-                if (CanAttack(pos))
-                {
-
                 }
 
                 i += 1;
@@ -59,8 +51,8 @@ namespace very_creative_project_name
         /// <returns>true if in range</returns>
         public bool CanAttack(Point pos)
         {
-            if ((pos.x + 4 > stats.x || pos.x - 4 > stats.x) &&
-                 (pos.y + 2 > stats.y || pos.y - 2 > stats.y))
+            if ((pos.x + 8 > stats.x || pos.x - 8 > stats.x) &&
+                 (pos.y + 4 > stats.y || pos.y - 4 > stats.y))
             {
                 return true;
             }
@@ -79,14 +71,14 @@ namespace very_creative_project_name
         {
             if (xDir)
             {
-                if (prop.tileType[pos.y][pos.x + dir] == 1)
+                if (prop.tileType[pos.y][pos.x + dir] == 1 && (stats.x != pos.x + dir || stats.y != pos.y))
                 {
                     return true;
                 }
             }
             else
             {
-                if (prop.tileType[pos.y + dir][pos.x] == 1)
+                if (prop.tileType[pos.y + dir][pos.x] == 1 && (stats.x != pos.x || stats.y != pos.y + dir))
                 {
                     return true;
                 }
@@ -98,22 +90,9 @@ namespace very_creative_project_name
         /// </summary>
         /// <param name="pos">enemy[i] position</param>
         /// <param name="i">The enemy number</param>
-        public void MoveX(Point pos, int i, bool invert)
+        public void MoveX(Point pos, int i)
         {
-            int dir = 0;
-            if (stats.x > pos.x)
-            {
-                dir = 1;
-            }
-            else if (stats.x < pos.x)
-            {
-                dir = -1;
-            }
-
-            if (invert)
-            {
-                dir *= -1;
-            }
+            int dir = Direction(pos, i, true);
 
             if (ValidMove(pos, i, dir, true))
             {
@@ -126,22 +105,9 @@ namespace very_creative_project_name
         /// </summary>
         /// <param name="pos">enemy[i] position</param>
         /// <param name="i">The enemy number</param>
-        public void MoveY(Point pos, int i, bool invert)
+        public void MoveY(Point pos, int i)
         {
-            int dir = 0;
-            if (stats.y > pos.y)
-            {
-                dir = 1;
-            }
-            else if (stats.y < pos.y)
-            {
-                dir = -1;
-            }
-
-            if (invert)
-            {
-                dir *= -1;
-            }
+            int dir = Direction(pos, i, false);
 
             if (ValidMove(pos, i, dir, false))
             {
@@ -153,9 +119,55 @@ namespace very_creative_project_name
         /// <summary>
         /// Lets the enemy attack - To be implemented!
         /// </summary>
-        void Attack()
+        public void Retaliate(Point pos, int enemy, int action)
         {
+            if (action >= 0 && action <= 4)
+            {
+                int[] attackDisp = new int[4];
 
+                //LEFT UP RIGHT DOWN
+                attackDisp[0] = pos.x + 1;
+                attackDisp[1] = pos.y + 1;
+                attackDisp[2] = pos.x - 1;
+                attackDisp[3] = pos.y - 1;
+
+                _ = disp.AllDirectionAttackAsync(pos, attackDisp);
+            }
+        }
+
+        /// <summary>
+        /// Gets intended direction for the enemy as int
+        /// </summary>
+        /// <param name="pos">Enemy[i] position</param>
+        /// <param name="i">The enemy number</param>
+        /// <param name="xDir">Whether to check for horizontal movement or not - prevents checking the opposing direction distance</param>
+        /// <returns>Direction as an int</returns>
+        public int Direction(Point pos, int i, bool xDir)
+        {
+            int dir = 0;
+            if (xDir)
+            {
+                if (stats.x > pos.x)
+                {
+                    dir = 1;
+                }
+                else if (stats.x < pos.x)
+                {
+                    dir = -1;
+                }
+            }
+            else
+            {
+                if (stats.y > pos.y)
+                {
+                    dir = 1;
+                }
+                else if (stats.y < pos.y)
+                {
+                    dir = -1;
+                }
+            }
+            return dir;
         }
     }
 }

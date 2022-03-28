@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
 {
-    class Map : Seed
+    class Map
     {
         public static List<Room> roomStorage = new List<Room>();
         public int rooms;
@@ -15,17 +16,10 @@ namespace very_creative_project_name
         /// </summary>
         public void Generate()
         {
-            //Rooms can be anywhere from 9 to 16 based on the 6th number in the seed 
-            while (rooms < 9)
-            {
-                rooms += splitSeed[5];
-                //Failsafe for if 6th seed number = 0 to prevent infinite loop
-                if (splitSeed[5] == 0) { rooms = 9; }
-            }
-
             //Sets all map-based properties to 0 before display
             prop.SetBase();
 
+            rooms = r.Next(9, 16);
             Room currentRoom;
             for (int i = 0; i < rooms; i++)
             {
@@ -70,7 +64,7 @@ namespace very_creative_project_name
                     (currentCenterX, currentCenterY) = (roomStorage[i].centerX, roomStorage[i].centerY);
                     (priorCenterX, priorCenterY) = (roomStorage[i - 1].centerX, roomStorage[i - 1].centerY);
 
-                    if (splitSeed[4] > 5)
+                    if (r.Next(0, 2) < 1)
                     {
                         path.CreatePathHor(priorCenterX, currentCenterX, priorCenterY);
                         path.CreatePathVer(priorCenterY, currentCenterY, currentCenterX);
@@ -90,6 +84,29 @@ namespace very_creative_project_name
 
             //Starts gameplay sequence
             core.SetPlayer();
+        }
+
+        /// <summary>
+        /// Is only called for generating a new map, this also increases the difficulty linearly
+        /// </summary>
+        public void GenNew(int additionalIncrease)
+        {
+            stats.difficulty += 1 + additionalIncrease;
+            map.Generate();
+        }
+
+        /// <summary>
+        /// Generates two numbers which is used for generation range - default range value = 3 .. 5
+        /// </summary>
+        /// <returns>Scaling range 1.2 ^ difficulty</returns>
+        public int[] ScaleRange()
+        {
+            int[] range = new int[2] { 3, 5 };
+            double doubleRangeScale = Math.Pow(1.2, stats.difficulty);
+            int rangeScale = (int)Math.Ceiling(doubleRangeScale);
+            range[0] += rangeScale;
+            range[1] += rangeScale;
+            return range;
         }
 
         /// <summary>

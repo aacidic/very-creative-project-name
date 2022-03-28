@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using static very_creative_project_name.Ref;
+using System.Threading.Tasks;
 
 namespace very_creative_project_name
 {
@@ -150,6 +151,64 @@ namespace very_creative_project_name
                 }
             }
         }
+
+        /// <summary>
+        /// Makes the enemy do an all-direction attack upon being attacked.
+        /// </summary>
+        /// <param name="pos">Enemy positon</param>
+        /// <param name="displays">Attack positions</param>
+        /// <returns></returns>
+        public async Task AllDirectionAttackAsync(Point pos, int[] displays)
+        {
+            edit.Colour("DarkRed");
+            for (int display = 0; display < 2; display++)
+            {
+                for (int i = 0; i < displays.Length; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        if (prop.tileType[pos.y][displays[i]] == 1)
+                        {
+                            Console.SetCursorPosition(displays[i], pos.y);
+                            if (display == 0)
+                            {
+                                if (stats.x == displays[i] && stats.y == pos.y)
+                                {
+                                    stats.health -= 1;
+                                }
+                                Console.Write("═");
+                            }
+                            else
+                            {
+                                Console.Write(" ");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (prop.tileType[displays[i]][pos.x] == 1)
+                        {
+                            Console.SetCursorPosition(pos.x, displays[i]);
+                            if (display == 0)
+                            {
+                                if (stats.y == displays[i] && stats.x == pos.x)
+                                {
+                                    stats.health -= 1;
+                                }
+                                Console.Write("║");
+                            }
+                            else
+                            {
+                                Console.Write(" ");
+                            }
+                        }
+                    }
+                }
+                await Task.Delay(200);
+            }
+            DrawPlayer(stats.x, stats.y);
+        }
+
 
         /// <summary>
         /// Displays health of the enemy

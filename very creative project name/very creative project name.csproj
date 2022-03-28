@@ -6,4 +6,8 @@
     <RootNamespace>very_creative_project_name</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;CS0649;NETSDK1138</NoWarn>
+  </PropertyGroup>
+
 </Project>

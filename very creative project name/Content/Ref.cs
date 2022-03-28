@@ -1,8 +1,10 @@
-﻿namespace very_creative_project_name
+﻿using System;
+
+namespace very_creative_project_name
 {
     abstract class Ref
     {
-        public static Seed seed = new Seed();
+        public static Map map = new Map();
         public static Display disp = new Display();
         public static CoreLoop core = new CoreLoop();
         public static ConsoleEdits edit = new ConsoleEdits();
@@ -12,5 +14,7 @@
         public static Interacts interact = new Interacts();
         public static ExtraGeneration extra = new ExtraGeneration();
         public static Enemy enemy = new Enemy();
+
+        public static Random r = new Random();
     }
 }
