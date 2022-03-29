@@ -24,7 +24,7 @@ namespace very_creative_project_name
         {
             int[] pos = IsInRoom();
             (stats.x, stats.y) = (pos[0], pos[1]);
-            disp.DrawPlayer(stats.x, stats.y);
+            disp.DrawPlayer();
         }
         
         /// <summary>

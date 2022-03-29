@@ -26,6 +26,12 @@ namespace very_creative_project_name
                     }
                 }
 
+                if (CanAttack(pos))
+                {
+                    Console.SetCursorPosition(0, 48);
+                    Console.Write("hello from {0} , {1}",pos.x, pos.y);
+                    
+                }
                 i += 1;
             }
         }

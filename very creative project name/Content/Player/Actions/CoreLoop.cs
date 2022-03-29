@@ -12,6 +12,7 @@ namespace very_creative_project_name
 
         public void SetPlayer()
         {
+            inv.GetArmour();
             stats.canAttack = true;
             stats.health = 10;
             stats.isAlive = true;
@@ -72,6 +73,12 @@ namespace very_creative_project_name
                     {
                         interact.Branch(keyPressed);
                     }
+                }
+
+                if (stats.health <= 0)
+                {
+                    stats.health = 0;
+                    stats.isAlive = false;
                 }
             }
         }

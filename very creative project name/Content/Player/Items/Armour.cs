@@ -9,7 +9,7 @@
 
         }
 
-        public Armour(int healthBoost, int id, string name, string desc, int weight, Type type, int amt) : base(id, name, desc, weight, type, amt)
+        public Armour(int healthBoost, int id, string name, string desc, float weight, Type type, int amt) : base(id, name, desc, weight, type, amt)
         {
             HealthBoost = healthBoost;
         }
@@ -17,8 +17,8 @@
         public override string Display()
         {
             string item = "";
+            item += base.Display();
             item += "Health Increase: " + HealthBoost;
-            base.Display();
             return item;
         }
     }

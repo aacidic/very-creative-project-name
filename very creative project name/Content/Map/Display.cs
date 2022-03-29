@@ -83,22 +83,22 @@ namespace very_creative_project_name
         /// <summary>
         /// Draws the player from the stat position
         /// </summary>
-        public void DrawPlayer(int x, int y)
+        public void DrawPlayer()
         {
-            if (x == 0 && y == 0)
+            if (stats.x == 0 && stats.y == 0)
             {
             }
             else
             {
                 edit.Colour("Green");
-                Console.SetCursorPosition(x, y);
+                Console.SetCursorPosition(stats.x, stats.y);
                 Console.Write("■");
                 edit.Colour("Blue");
                 //Prevents filling player if they haven't moved positions but pressed a movement key
-                if (lastX != x || lastY != y)
+                if (lastX != stats.x || lastY != stats.y)
                 {
                     FillLast(lastX, lastY);
-                    (lastX, lastY) = (x, y);
+                    (lastX, lastY) = (stats.x, stats.y);
                 }
             }
         }
@@ -151,64 +151,6 @@ namespace very_creative_project_name
                 }
             }
         }
-
-        /// <summary>
-        /// Makes the enemy do an all-direction attack upon being attacked.
-        /// </summary>
-        /// <param name="pos">Enemy positon</param>
-        /// <param name="displays">Attack positions</param>
-        /// <returns></returns>
-        public async Task AllDirectionAttackAsync(Point pos, int[] displays)
-        {
-            edit.Colour("DarkRed");
-            for (int display = 0; display < 2; display++)
-            {
-                for (int i = 0; i < displays.Length; i++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        if (prop.tileType[pos.y][displays[i]] == 1)
-                        {
-                            Console.SetCursorPosition(displays[i], pos.y);
-                            if (display == 0)
-                            {
-                                if (stats.x == displays[i] && stats.y == pos.y)
-                                {
-                                    stats.health -= 1;
-                                }
-                                Console.Write("═");
-                            }
-                            else
-                            {
-                                Console.Write(" ");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (prop.tileType[displays[i]][pos.x] == 1)
-                        {
-                            Console.SetCursorPosition(pos.x, displays[i]);
-                            if (display == 0)
-                            {
-                                if (stats.y == displays[i] && stats.x == pos.x)
-                                {
-                                    stats.health -= 1;
-                                }
-                                Console.Write("║");
-                            }
-                            else
-                            {
-                                Console.Write(" ");
-                            }
-                        }
-                    }
-                }
-                await Task.Delay(200);
-            }
-            DrawPlayer(stats.x, stats.y);
-        }
-
 
         /// <summary>
         /// Displays health of the enemy
@@ -287,6 +229,65 @@ namespace very_creative_project_name
             {
                 return (char)type;
             }
+        }
+        #endregion
+
+        #region Tasks
+        /// <summary>
+        /// Makes the enemy do an all-direction attack upon being attacked.
+        /// </summary>
+        /// <param name="pos">Enemy positon</param>
+        /// <param name="displays">Attack positions</param>
+        /// <returns></returns>
+        public async Task AllDirectionAttackAsync(Point pos, int[] displays)
+        {
+            edit.Colour("DarkRed");
+            for (int display = 0; display < 2; display++)
+            {
+                for (int i = 0; i < displays.Length; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        if (prop.tileType[pos.y][displays[i]] == 1)
+                        {
+                            Console.SetCursorPosition(displays[i], pos.y);
+                            if (display == 0)
+                            {
+                                if (stats.x == displays[i] && stats.y == pos.y)
+                                {
+                                    stats.health -= 1;
+                                }
+                                Console.Write("═");
+                            }
+                            else
+                            {
+                                Console.Write(" ");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (prop.tileType[displays[i]][pos.x] == 1)
+                        {
+                            Console.SetCursorPosition(pos.x, displays[i]);
+                            if (display == 0)
+                            {
+                                if (stats.y == displays[i] && stats.x == pos.x)
+                                {
+                                    stats.health -= 1;
+                                }
+                                Console.Write("║");
+                            }
+                            else
+                            {
+                                Console.Write(" ");
+                            }
+                        }
+                    }
+                }
+                await Task.Delay(200);
+            }
+            DrawPlayer();
         }
         #endregion
 

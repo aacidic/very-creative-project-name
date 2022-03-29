@@ -1,0 +1,75 @@
+﻿using System.IO;
+using System.Collections.Generic;
+using static very_creative_project_name.Ref;
+
+namespace very_creative_project_name
+{   
+    class Inventory
+    {
+        List<Armour> armours = new List<Armour>();
+        string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\")) + @"Content\Text\ItemList.txt";
+
+        public void GetArmour()
+        {
+            Armour armour = new Armour();
+            int i = 1;
+            foreach (string line in File.ReadLines(path))
+            {
+                if (i > 1)
+                {
+                    string[] split = line.Split(" | ");
+                    float weight = float.Parse(split[3]);
+                    armours.Add(new Armour(int.Parse(split[5]), int.Parse(split[0]), split[1], split[2], weight, (Type)int.Parse(split[4]), 1));
+                }
+                i++;
+            }
+        }
+
+        public double TotalWeight()
+        {
+            double weight = 0;
+            foreach (Armour arm in armours)
+            {
+                weight += arm.Weight;
+            }
+            return weight;
+        }
+        public Item RollArmour()
+        {
+            double total = TotalWeight();
+            double current = 0;
+            double random = total * r.NextDouble();
+            foreach (Armour arm in armours)
+            {
+                current += arm.Weight;
+                if (random >= arm.Weight && random <= current)
+                {
+                    if (stats.inventory.Exists(item => item.ID == arm.ID))
+                    {
+                        int pos = stats.inventory.FindIndex(item => item.ID == arm.ID);
+                        stats.inventory[pos].Amount += 1;
+                    }
+                    else
+                    {
+                        stats.inventory.Add(arm);
+                        return arm;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public int GetPotions()
+        {
+            int amount = 0;
+            if (stats.inventory.Exists(item => item.ID == 00))
+            {
+                return amount;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
+}

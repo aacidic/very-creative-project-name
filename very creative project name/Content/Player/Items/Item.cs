@@ -6,9 +6,9 @@ namespace very_creative_project_name
 {
     public enum Type
     {
-        Weapon = 0,
+        Consumable = 0,
         Armour = 1,
-        Consumable = 2
+        Weapon = 2
     }
     abstract class Item
     {
@@ -34,15 +34,14 @@ namespace very_creative_project_name
             Amount = amt;
         }
 
-        //Don't display ID or special
         public virtual string Display()
         {
             string item = "";
-            item += ItemType.ToString() + ": ";
-            item += Name + " > ";
-            item += Description + " > ";
-            item += "Rarity: " + Weight;
-            item += "Amount: " + Amount;
+            item += ID.ToString();
+            item += ": "+ Name + " - ";
+            item += Description;
+            item += " Weight: " + Weight;
+            item += " Amount: " + Amount;
             return item;
         }
     }

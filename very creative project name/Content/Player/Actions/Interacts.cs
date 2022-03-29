@@ -41,6 +41,7 @@ namespace very_creative_project_name
                 }
                 else
                 {
+                    Console.SetCursorPosition(0, 45);
                     Console.Write("There is nothing to open!");
                 }
             }
@@ -106,19 +107,19 @@ namespace very_creative_project_name
                     Console.Write(".");
                     await Task.Delay(200);
                 }
-                if (randomPull == 0)
+                if (randomPull >= 0)
                 {
-                    //stats.inventory.Add(new Armour());
-                    loot = "a new armour!";
+                    Item item = inv.RollArmour();
+                    loot = "the " + item.Name + "!";
                 }
-                else if (randomPull == 1)
+                else if (randomPull >= 7)
                 {
-                    //stats.inventory.Add(new Weapon());
-                    loot = "a new weapon!";
+                    loot = "a health potion!";
                 }
-                else if (randomPull >= 2)
+                else if (randomPull >= 8)
                 {
-                    int gold = randomPull * r.Next(1, 30);
+                    int[] goldBaseRange = map.ScaleRange();
+                    int gold = randomPull * r.Next(goldBaseRange[0], goldBaseRange[1]);
                     stats.gold += gold;
                     loot = gold.ToString() + " gold!";
                 }
@@ -126,6 +127,7 @@ namespace very_creative_project_name
                 Console.Write("You obtained " + loot);
                 //Sets loot to empty map position
                 disp.UpdateTile(chestPos[0], chestPos[1], 1);
+                disp.DrawPlayer();
                 openingLootState = 0;
             }
             else
@@ -153,9 +155,13 @@ namespace very_creative_project_name
                     Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (exitInvText.Length / 2)) + "}", exitInvText));
                     edit.Colour("Blue");
                     Console.SetCursorPosition(0, 55);
-                    Console.Write("consumables here");
+                    Console.Write("You current have {0} health potions to use. Your current floor difficulty is {1}.", inv.GetPotions(), stats.difficulty);
                     Console.SetCursorPosition(0, 60);
-                    Console.Write("weapon list here {0}", stats.difficulty);
+                    foreach (Item item in stats.inventory)
+                    {
+                        Console.Write(item.Display());
+                        Console.Write("\n");
+                    }
                 }
                 key = Console.ReadKey(true);
                 i += 1;
@@ -196,7 +202,7 @@ namespace very_creative_project_name
                 await Task.Delay(400);
                 Console.SetCursorPosition(attackPos[0], attackPos[1]);
                 Console.Write(" ");
-                disp.DrawPlayer(stats.x, stats.y);
+                disp.DrawPlayer();
 
                 int i = 0;
                 foreach (Point iEnemy in prop.enemy)

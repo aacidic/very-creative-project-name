@@ -42,7 +42,7 @@ namespace very_creative_project_name
                 }
                 else { return false; }
             }
-            disp.DrawPlayer(stats.x, stats.y);
+            disp.DrawPlayer();
             return true;
         }
 
