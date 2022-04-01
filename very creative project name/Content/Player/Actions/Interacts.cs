@@ -138,7 +138,7 @@ namespace very_creative_project_name
         }
 
         /// <summary>
-        /// Opens the player's inventory - To be implemented!
+        /// Opens the player's inventory
         /// </summary>
         void OpenInventory()
         {
@@ -159,9 +159,15 @@ namespace very_creative_project_name
                     Console.SetCursorPosition(0, 60);
                     foreach (Item item in stats.inventory)
                     {
+                        edit.Colour("White");
                         Console.Write(item.Display());
                         Console.Write("\n");
                     }
+                    foreach (Item item in inv.armours)
+                    {
+                        Console.Write(item.ID + " a");
+                    }
+                    edit.Colour("Blue");
                 }
                 key = Console.ReadKey(true);
                 i += 1;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace very_creative_project_name
+﻿namespace very_creative_project_name
 {
     public enum Type
     {
@@ -37,11 +33,11 @@ namespace very_creative_project_name
         public virtual string Display()
         {
             string item = "";
+            
             item += ID.ToString();
-            item += ": "+ Name + " - ";
+            item += " | "+ Name + " - ";
             item += Description;
-            item += " Weight: " + Weight;
-            item += " Amount: " + Amount;
+            item += " | You have: " + Amount + " of this item.";
             return item;
         }
     }

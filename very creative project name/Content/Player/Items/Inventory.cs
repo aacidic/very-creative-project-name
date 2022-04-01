@@ -1,12 +1,13 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using static very_creative_project_name.Ref;
+using System;
 
 namespace very_creative_project_name
 {   
     class Inventory
     {
-        List<Armour> armours = new List<Armour>();
+        public List<Armour> armours = new List<Armour>();
         string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\")) + @"Content\Text\ItemList.txt";
 
         public void GetArmour()
@@ -25,9 +26,9 @@ namespace very_creative_project_name
             }
         }
 
-        public double TotalWeight()
+        public float TotalWeight()
         {
-            double weight = 0;
+            float weight = 0;
             foreach (Armour arm in armours)
             {
                 weight += arm.Weight;
@@ -36,13 +37,12 @@ namespace very_creative_project_name
         }
         public Item RollArmour()
         {
-            double total = TotalWeight();
-            double current = 0;
-            double random = total * r.NextDouble();
+            float total = TotalWeight();
+            float rolledItem = (float)Math.Round(total * r.NextDouble(), 2);
             foreach (Armour arm in armours)
             {
-                current += arm.Weight;
-                if (random >= arm.Weight && random <= current)
+                rolledItem -= arm.Weight;
+                if (rolledItem < 0)
                 {
                     if (stats.inventory.Exists(item => item.ID == arm.ID))
                     {

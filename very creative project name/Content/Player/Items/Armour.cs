@@ -18,7 +18,7 @@
         {
             string item = "";
             item += base.Display();
-            item += "Health Increase: " + HealthBoost;
+            item += " | Increases health by: " + HealthBoost + " per stack.";
             return item;
         }
     }
