@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
@@ -82,8 +81,16 @@ namespace very_creative_project_name
             disp.DrawEnemies(prop.enemy);
             roomStorage.Clear();
 
-            //Starts gameplay sequence
-            core.SetPlayer();
+            if (stats.firstLoop == true)
+            {
+                //Starts gameplay sequence
+                core.SetPlayer();
+                stats.firstLoop = false;
+            }
+            else
+            {
+                core.NewShop();
+            }
         }
 
         /// <summary>
@@ -91,6 +98,7 @@ namespace very_creative_project_name
         /// </summary>
         public void GenNew(int additionalIncrease)
         {
+            core.shopItems.Clear();
             stats.difficulty += 1 + additionalIncrease;
             map.Generate();
         }

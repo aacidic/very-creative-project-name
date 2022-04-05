@@ -1,5 +1,4 @@
-﻿using System;
-using static very_creative_project_name.Ref;
+﻿using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
 {
@@ -11,7 +10,7 @@ namespace very_creative_project_name
         public void Move()
         {
             int i = 0;
-            foreach (Point pos in prop.enemy)
+            foreach (EnemyPoint pos in prop.enemy)
             {
                 int randomAction = r.Next(0, 9);
                 if (InMoveRange(pos))
@@ -25,13 +24,6 @@ namespace very_creative_project_name
                         enemy.MoveY(pos, i);
                     }
                 }
-
-                if (CanAttack(pos))
-                {
-                    Console.SetCursorPosition(0, 48);
-                    Console.Write("hello from {0} , {1}",pos.x, pos.y);
-                    
-                }
                 i += 1;
             }
         }
@@ -40,7 +32,7 @@ namespace very_creative_project_name
         /// </summary>
         /// <param name="pos">Enemy position</param>
         /// <returns>true if in range</returns>
-        public bool InMoveRange(Point pos)
+        public bool InMoveRange(EnemyPoint pos)
         {
             if ((pos.x + 30 > stats.x || pos.x - 30 > stats.x) && 
                 (pos.y + 15 > stats.y || pos.y - 15 > stats.y))
@@ -50,12 +42,13 @@ namespace very_creative_project_name
             return false;
         }
 
+        #region Depreciated Attack Check for poor functionality and on-collision hit
         /// <summary>
         /// Checks if enemy is within attack range of player
         /// </summary>
         /// <param name="pos">Enemy position</param>
         /// <returns>true if in range</returns>
-        public bool CanAttack(Point pos)
+        public bool CanAttack(EnemyPoint pos)
         {
             if ((pos.x + 8 > stats.x || pos.x - 8 > stats.x) &&
                  (pos.y + 4 > stats.y || pos.y - 4 > stats.y))
@@ -64,6 +57,7 @@ namespace very_creative_project_name
             }
             return false;
         }
+        #endregion
 
         /// <summary>
         /// Checks if the position enemy is attempting to move is valid
@@ -73,7 +67,7 @@ namespace very_creative_project_name
         /// <param name="dir">Direction for setcursorposition</param>
         /// <param name="xDir">Whether the check is horizontal</param>
         /// <returns>true if enemy can move to position</returns>
-        public bool ValidMove(Point pos, int enemy, int dir, bool xDir)
+        public bool ValidMove(EnemyPoint pos, int enemy, int dir, bool xDir)
         {
             if (xDir)
             {
@@ -96,7 +90,7 @@ namespace very_creative_project_name
         /// </summary>
         /// <param name="pos">enemy[i] position</param>
         /// <param name="i">The enemy number</param>
-        public void MoveX(Point pos, int i)
+        public void MoveX(EnemyPoint pos, int i)
         {
             int dir = Direction(pos, i, true);
 
@@ -111,7 +105,7 @@ namespace very_creative_project_name
         /// </summary>
         /// <param name="pos">enemy[i] position</param>
         /// <param name="i">The enemy number</param>
-        public void MoveY(Point pos, int i)
+        public void MoveY(EnemyPoint pos, int i)
         {
             int dir = Direction(pos, i, false);
 
@@ -125,7 +119,7 @@ namespace very_creative_project_name
         /// <summary>
         /// Lets the enemy attack - To be implemented!
         /// </summary>
-        public void Retaliate(Point pos, int enemy, int action)
+        public void Retaliate(EnemyPoint pos, int enemy, int action)
         {
             if (action >= 0 && action <= 4)
             {
@@ -148,7 +142,7 @@ namespace very_creative_project_name
         /// <param name="i">The enemy number</param>
         /// <param name="xDir">Whether to check for horizontal movement or not - prevents checking the opposing direction distance</param>
         /// <returns>Direction as an int</returns>
-        public int Direction(Point pos, int i, bool xDir)
+        public int Direction(EnemyPoint pos, int i, bool xDir)
         {
             int dir = 0;
             if (xDir)

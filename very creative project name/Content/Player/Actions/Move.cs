@@ -42,6 +42,14 @@ namespace very_creative_project_name
                 }
                 else { return false; }
             }
+
+            foreach (EnemyPoint enemy in prop.enemy)
+            {
+                if (enemy.x == stats.x && enemy.y == stats.y)
+                {
+                    stats.health -= 1;
+                }
+            }
             disp.DrawPlayer();
             return true;
         }

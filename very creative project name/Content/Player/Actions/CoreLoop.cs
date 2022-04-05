@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static very_creative_project_name.Ref;
 
 namespace very_creative_project_name
@@ -6,9 +7,10 @@ namespace very_creative_project_name
     class CoreLoop
     {
         //Movement: WASD
-        //Interacts: M = Resize screen, E = Interact with item in room
+        //Interacts: M = Resize screen, E = Interact with item in room, I = Inventory, Q + arrow = Attack, H = Help
         public ConsoleKey[] movementKeys = new ConsoleKey[] { ConsoleKey.W, ConsoleKey.A, ConsoleKey.S, ConsoleKey.D };
         public ConsoleKey[] interactKeys = new ConsoleKey[] { ConsoleKey.E, ConsoleKey.M, ConsoleKey.I, ConsoleKey.Q, ConsoleKey.H };
+        public List<Armour> shopItems;
 
         public void SetPlayer()
         {
@@ -16,6 +18,13 @@ namespace very_creative_project_name
             stats.canAttack = true;
             stats.health = 10;
             stats.isAlive = true;
+            NewShop();
+        }
+
+        public void NewShop()
+        {
+            Shop shop = new Shop();
+            shopItems = shop.ShopItems();
             Choice();
         }
 

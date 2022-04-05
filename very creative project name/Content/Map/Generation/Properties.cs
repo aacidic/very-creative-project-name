@@ -6,7 +6,7 @@ namespace very_creative_project_name
     class Properties : Map
     {
         public int[][] tileType = new int[44][];
-        public List<Point> enemy = new List<Point>();
+        public List<EnemyPoint> enemy = new List<EnemyPoint>();
 
         /// <summary>
         /// tileType Broken down:

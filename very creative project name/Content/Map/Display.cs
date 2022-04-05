@@ -113,9 +113,9 @@ namespace very_creative_project_name
         }
 
         //Initial enemy display after generation
-        public void DrawEnemies(List<Point> enemy)
+        public void DrawEnemies(List<EnemyPoint> enemy)
         {
-            foreach (Point pos in enemy)
+            foreach (EnemyPoint pos in enemy)
             {
                 Console.SetCursorPosition(pos.x, pos.y);
                 Console.Write(Char(2));
@@ -128,7 +128,7 @@ namespace very_creative_project_name
         /// <param name="enemy">Enemy position</param>
         /// <param name="dir">Directional value change for cursor position</param>
         /// <param name="xDir">If movement is horizontal</param>
-        public void UpdateEnemy(Point enemy, int dir, bool xDir)
+        public void UpdateEnemy(EnemyPoint enemy, int dir, bool xDir)
         {
             if (xDir)
             {
@@ -239,7 +239,7 @@ namespace very_creative_project_name
         /// <param name="pos">Enemy positon</param>
         /// <param name="displays">Attack positions</param>
         /// <returns></returns>
-        public async Task AllDirectionAttackAsync(Point pos, int[] displays)
+        public async Task AllDirectionAttackAsync(EnemyPoint pos, int[] displays)
         {
             edit.Colour("DarkRed");
             for (int display = 0; display < 2; display++)
@@ -310,8 +310,8 @@ namespace very_creative_project_name
                 stat[4] = "Green";
                 stat[5] = "    Can attack!   ";
             }
-            stat[6] = "Magenta";
-            stat[7] = stats.dodgeChance.ToString() + " Dodge Chance";
+            stat[6] = "DarkRed";
+            stat[7] = stats.difficulty.ToString() + " Difficulty";
             return stat;
         }
         #endregion

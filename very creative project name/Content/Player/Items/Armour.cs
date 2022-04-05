@@ -21,5 +21,13 @@
             item += " | Increases health by: " + HealthBoost + " per stack.";
             return item;
         }
+
+        public override string DisplayNoAmount()
+        {
+            string item = "";
+            item += base.DisplayNoAmount();
+            item += " | Increases health by: " + HealthBoost + " per stack.";
+            return item;
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace very_creative_project_name
     class Inventory
     {
         public List<Armour> armours = new List<Armour>();
+        public List<int> prices = new List<int>();
         string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\")) + @"Content\Text\ItemList.txt";
 
         public void GetArmour()
@@ -21,6 +22,7 @@ namespace very_creative_project_name
                     string[] split = line.Split(" | ");
                     float weight = float.Parse(split[3]);
                     armours.Add(new Armour(int.Parse(split[5]), int.Parse(split[0]), split[1], split[2], weight, (Type)int.Parse(split[4]), 1));
+                    prices.Add(int.Parse(split[6]) * map.ScaleRange()[0]);
                 }
                 i++;
             }
@@ -35,6 +37,7 @@ namespace very_creative_project_name
             }
             return weight;
         }
+
         public Item RollArmour()
         {
             float total = TotalWeight();
@@ -48,10 +51,13 @@ namespace very_creative_project_name
                     {
                         int pos = stats.inventory.FindIndex(item => item.ID == arm.ID);
                         stats.inventory[pos].Amount += 1;
+                        stats.health += arm.HealthBoost;
+                        return arm;
                     }
                     else
                     {
                         stats.inventory.Add(arm);
+                        stats.health += arm.HealthBoost;
                         return arm;
                     }
                 }

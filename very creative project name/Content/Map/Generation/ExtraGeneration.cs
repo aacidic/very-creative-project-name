@@ -51,7 +51,7 @@ namespace very_creative_project_name
             for (int i = 0; i < enemies; i++)
             {
                 int[] pos = IsInRoom();
-                prop.enemy.Add(new Point(pos[0], pos[1], 5));
+                prop.enemy.Add(new EnemyPoint(pos[0], pos[1], 5));
             }
         }
 

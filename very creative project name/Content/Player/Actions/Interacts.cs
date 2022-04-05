@@ -107,16 +107,23 @@ namespace very_creative_project_name
                     Console.Write(".");
                     await Task.Delay(200);
                 }
-                if (randomPull >= 0)
+                if (randomPull >= 0 && randomPull <= 1)
                 {
-                    Item item = inv.RollArmour();
-                    loot = "the " + item.Name + "!";
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Item item = inv.RollArmour();
+                        loot = "the " + item.Name + "!";
+                    }
                 }
-                else if (randomPull >= 7)
+                else if (randomPull == 2)
                 {
                     loot = "a health potion!";
                 }
-                else if (randomPull >= 8)
+                else if (randomPull == 3)
+                {
+                    loot = "nothing.... it was empty!";
+                }
+                else if (randomPull >= 4)
                 {
                     int[] goldBaseRange = map.ScaleRange();
                     int gold = randomPull * r.Next(goldBaseRange[0], goldBaseRange[1]);
@@ -144,32 +151,59 @@ namespace very_creative_project_name
         {
             Console.SetCursorPosition(0, 96);
             ConsoleKeyInfo key = new ConsoleKeyInfo();
+            int[] itemPrices = new int[3];
+
             int i = 0;
             while (key.Key != ConsoleKey.I)
             {
                 if (i == 0)
                 {
                     string exitInvText = "Press I again to exit your inventory and return to the game.";
-                    Console.SetCursorPosition(0, 50);
+                    string potionText = "You current have " + inv.GetPotions() + " health potions to use. Your current floor difficulty is " + stats.difficulty + ".";
+                    Console.SetCursorPosition(0, 51);
                     edit.Colour("White");
                     Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (exitInvText.Length / 2)) + "}", exitInvText));
-                    edit.Colour("Blue");
-                    Console.SetCursorPosition(0, 55);
-                    Console.Write("You current have {0} health potions to use. Your current floor difficulty is {1}.", inv.GetPotions(), stats.difficulty);
-                    Console.SetCursorPosition(0, 60);
+                    Console.SetCursorPosition(0, 53);
+                    Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (potionText.Length / 2)) + "}", potionText));
+                    Console.SetCursorPosition(0, 56);
                     foreach (Item item in stats.inventory)
                     {
                         edit.Colour("White");
-                        Console.Write(item.Display());
-                        Console.Write("\n");
+                        Console.Write(item.Display() + "\n");
                     }
-                    foreach (Item item in inv.armours)
-                    {
-                        Console.Write(item.ID + " a");
-                    }
+                    Console.Write(inv.armours.Count);
                     edit.Colour("Blue");
+
+                    Console.SetCursorPosition(0, 90);
+
+                    int itemNumber = 1;
+                    foreach (Armour item in core.shopItems)
+                    {
+                        Console.Write("PRESS [" + itemNumber + "] TO PURCHASE | Cost: " + inv.prices[item.ID] + " Gold | " + item.DisplayNoAmount() + "\n");
+                        itemPrices[itemNumber - 1] = inv.prices[item.ID];
+                        itemNumber += 1;
+                    }
                 }
+
                 key = Console.ReadKey(true);
+
+                if (int.TryParse(key.Key.ToString(), out int numberPressed))
+                {
+                    if (numberPressed < 4)
+                    {
+                        if (stats.gold > itemPrices[numberPressed])
+                        {
+                            stats.inventory.Add(core.shopItems[numberPressed]);
+                            core.shopItems.RemoveAt(numberPressed);
+                            Console.Write("You have purchased this item!");
+                        }
+                        else
+                        {
+                            Console.Write("You cannot afford this!");
+                        }
+                    }
+                }
+
                 i += 1;
             }
             Console.SetCursorPosition(0, 0);
@@ -211,7 +245,7 @@ namespace very_creative_project_name
                 disp.DrawPlayer();
 
                 int i = 0;
-                foreach (Point iEnemy in prop.enemy)
+                foreach (EnemyPoint iEnemy in prop.enemy)
                 {
                     if (attackPos[0] == iEnemy.x && attackPos[1] == iEnemy.y)
                     {
