@@ -6,7 +6,7 @@
         Armour = 1,
         Weapon = 2
     }
-    abstract class Item
+    public abstract class Item
     {
         public int ID { get; set; }
         public string Name { get; set; }

@@ -5,6 +5,11 @@ namespace very_creative_project_name
 {
     class Move : CoreLoop
     {
+        /// <summary>
+        /// Main functionality for player movement, moves position based on grid and InvalidMove function below
+        /// </summary>
+        /// <param name="key">Key Pressed by player</param>
+        /// <returns>True if player has successfully moved</returns>
         public bool Player(ConsoleKeyInfo key)
         {
             int checkValidY = stats.y;

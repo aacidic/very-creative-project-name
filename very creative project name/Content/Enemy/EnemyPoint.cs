@@ -1,8 +1,14 @@
 ﻿namespace very_creative_project_name
 {
-    class EnemyPoint
+    public class EnemyPoint
     {
         public int x, y, health;
+
+        public EnemyPoint()
+        {
+
+        }
+
         public EnemyPoint(int x, int y, int health)
         {
             this.x = x;

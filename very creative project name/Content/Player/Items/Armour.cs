@@ -1,6 +1,6 @@
 ﻿namespace very_creative_project_name
 {
-    class Armour : Item
+    public class Armour : Item
     {
         public int HealthBoost { get; set; }
 

@@ -14,11 +14,7 @@ namespace very_creative_project_name
         /// <param name="interact">Key pressed by player fed into branch</param>
         public void Branch(ConsoleKeyInfo interact)
         {
-            if (interact.Key == ConsoleKey.M)
-            {
-                Resize();
-            }
-            else if (interact.Key == ConsoleKey.E)
+            if (interact.Key == ConsoleKey.E)
             {
                 if (prop.tileType[stats.y][stats.x] == 3)
                 {
@@ -65,15 +61,9 @@ namespace very_creative_project_name
         }
 
         /// <summary>
-        /// Resizes the window to default on M key press
+        /// Short function to centralise any information that needs configuring before map is regerated
         /// </summary>
-        void Resize()
-        {
-            Console.SetWindowSize(200, 50);
-            Console.SetWindowPosition(0, 0);
-            Console.CursorVisible = false;
-        }
-
+        /// <param name="increase">Increase of difficulty to be fed for new map generation</param>
         void ExitFloor(int increase)
         {
             ConsoleKeyInfo key = Console.ReadKey(true);
@@ -109,14 +99,12 @@ namespace very_creative_project_name
                 }
                 if (randomPull >= 0 && randomPull <= 1)
                 {
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Item item = inv.RollArmour();
-                        loot = "the " + item.Name + "!";
-                    }
+                    Item item = inv.RollArmour();
+                    loot = "the " + item.Name + "!";
                 }
                 else if (randomPull == 2)
                 {
+                    stats.potionsHeld += 1;
                     loot = "a health potion!";
                 }
                 else if (randomPull == 3)
@@ -149,6 +137,8 @@ namespace very_creative_project_name
         /// </summary>
         void OpenInventory()
         {
+            InventoryText();
+
             Console.SetCursorPosition(0, 96);
             ConsoleKeyInfo key = new ConsoleKeyInfo();
             int[] itemPrices = new int[3];
@@ -158,55 +148,163 @@ namespace very_creative_project_name
             {
                 if (i == 0)
                 {
-                    string exitInvText = "Press I again to exit your inventory and return to the game.";
-                    string potionText = "You current have " + inv.GetPotions() + " health potions to use. Your current floor difficulty is " + stats.difficulty + ".";
-                    Console.SetCursorPosition(0, 51);
-                    edit.Colour("White");
-                    Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (exitInvText.Length / 2)) + "}", exitInvText));
-                    Console.SetCursorPosition(0, 53);
-                    Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (potionText.Length / 2)) + "}", potionText));
-                    Console.SetCursorPosition(0, 56);
-                    foreach (Item item in stats.inventory)
-                    {
-                        edit.Colour("White");
-                        Console.Write(item.Display() + "\n");
-                    }
-                    Console.Write(inv.armours.Count);
-                    edit.Colour("Blue");
-
-                    Console.SetCursorPosition(0, 90);
-
-                    int itemNumber = 1;
+                    #region Shop Items
+                    Console.SetCursorPosition(0, 84);
+                    int itemNumber = 0;
                     foreach (Armour item in core.shopItems)
                     {
-                        Console.Write("PRESS [" + itemNumber + "] TO PURCHASE | Cost: " + inv.prices[item.ID] + " Gold | " + item.DisplayNoAmount() + "\n");
-                        itemPrices[itemNumber - 1] = inv.prices[item.ID];
+                        edit.Colour("Green");
+                        Console.Write("PRESS [" + (itemNumber + 1) + "] TO PURCHASE | Cost: " + inv.prices[item.ID] + " Gold | " + item.DisplayNoAmount() + "\n");
+                        itemPrices[itemNumber] = inv.prices[item.ID];
                         itemNumber += 1;
                     }
+                    #endregion
                 }
 
                 key = Console.ReadKey(true);
 
-                if (int.TryParse(key.Key.ToString(), out int numberPressed))
+                #region Shop Functionality (2 parts, 1 to check if player is buying from shop, second half purchases from shop)
+                int shopItem = 0;
+                bool buyingFromShop = false;
+                if (key.Key == ConsoleKey.D1)
                 {
-                    if (numberPressed < 4)
+                    shopItem = 0;
+                    buyingFromShop = true;
+                }
+                else if (key.Key == ConsoleKey.D2)
+                {
+                    shopItem = 1;
+                    buyingFromShop = true;
+                }
+                else if (key.Key == ConsoleKey.D3)
+                {
+                    shopItem = 2;
+                    buyingFromShop = true;
+                }
+                
+
+                if (stats.gold > itemPrices[shopItem] && buyingFromShop)
+                {
+                    stats.inventory.Add(core.shopItems[shopItem]);
+                    core.shopItems.RemoveAt(shopItem);
+                    edit.Colour("White");
+                    Console.Write("You have purchased this item! This will be updated the next time you open your inventory.");
+                    buyingFromShop = false;
+                }
+                else if (buyingFromShop)
+                {
+                    Console.SetCursorPosition(0, 87);
+                    edit.Colour("Red");
+                    Console.WriteLine(edit.Format("You cannot afford that item!"));
+                    buyingFromShop = false;
+                }
+                #endregion
+
+                if (key.Key == ConsoleKey.H)
+                {
+                    Console.SetCursorPosition(0, 55);
+                    edit.Colour("White");
+                    Console.Write(edit.Format(UsePotion()));
+                    DispStats();
+                    Console.SetCursorPosition(0, 96);
+                    InventoryText();
+                }
+                else if (key.Key == ConsoleKey.Escape)
+                {
+                    Console.SetCursorPosition(0, 95);
+                    edit.Colour("Red");
+                    Console.Write(edit.Format("      Are you sure? Press ENTER to confirm the choice of Save and Quit.      "));
+                    ConsoleKeyInfo confirmAction = Console.ReadKey();
+                    if (confirmAction.Key == ConsoleKey.Enter)
                     {
-                        if (stats.gold > itemPrices[numberPressed])
-                        {
-                            stats.inventory.Add(core.shopItems[numberPressed]);
-                            core.shopItems.RemoveAt(numberPressed);
-                            Console.Write("You have purchased this item!");
-                        }
-                        else
-                        {
-                            Console.Write("You cannot afford this!");
-                        }
+                        save.SaveAndQuit();
+                    }
+                    else
+                    {
+                        InventoryText();
                     }
                 }
 
                 i += 1;
             }
+            for (int y = 51; y < 100; y++)
+            {
+                for (int x = 0; x < 200; x++)
+                {
+                    Console.SetCursorPosition(x, y);
+                    Console.Write(" ");
+                }
+            }
             Console.SetCursorPosition(0, 0);
+        }
+
+        /// <summary>
+        /// Calculates 20% of the player's maximum health, adds that on use. Prevents health from exceeding max health.
+        /// </summary>
+        /// <returns>Text output of potion use result</returns>
+        string UsePotion()
+        {
+            if (stats.potionsHeld > 0)
+            {
+                float fMaxHealth = stats.maxHealth;
+                fMaxHealth *= 0.2f;
+                stats.health += (int)MathF.Round(fMaxHealth);
+                if (stats.health > stats.maxHealth)
+                {
+                    stats.health = stats.maxHealth;
+                }
+                stats.potionsHeld -= 1;
+                return "You have used a health potion!";
+            }
+            else
+            {
+                return "     You have no potions!     ";
+            }
+        }
+
+        /// <summary>
+        /// Most standard formatted text displayed in inventory
+        /// </summary>
+        void InventoryText()
+        {
+            //Standard inventory text
+            string exitInvText = "Press I again to exit your inventory and return to the game.";
+            string potionText = "You current have " + stats.potionsHeld + " health potions to use.";
+            string usePotionText = "Press [H] to use a potion. Potions heal you for 20% of your health.";
+            string exitText = "Press ESC to save and quit the game. This can only be done in your inventory.";
+            string fullLine = new string('=', 200);
+
+            edit.Colour("White");
+            Console.SetCursorPosition(0, 51);
+            Console.Write(fullLine);
+            Console.SetCursorPosition(0, 53);
+            Console.WriteLine(edit.Format(exitInvText));
+            Console.SetCursorPosition(0, 55);
+            Console.WriteLine(edit.Format(potionText));
+            Console.SetCursorPosition(0, 56);
+            Console.WriteLine(edit.Format(usePotionText));
+            Console.SetCursorPosition(0, 58);
+            Console.Write(fullLine);
+
+            //Writes items in inventory
+            Console.SetCursorPosition(0, 60);
+            Console.WriteLine(edit.Format("Your Items:"));
+            Console.SetCursorPosition(0, 62);
+            foreach (Item item in stats.inventory)
+            {
+                edit.Colour("White");
+                Console.Write(item.Display() + "\n");
+            }
+            Console.SetCursorPosition(0, 80);
+            Console.Write(fullLine);
+            Console.SetCursorPosition(0, 82);
+            Console.WriteLine(edit.Format("The Shop:"));
+            Console.SetCursorPosition(0, 89);
+            Console.Write(fullLine);
+            edit.Colour("Red");
+            Console.SetCursorPosition(0, 95);
+            Console.WriteLine(edit.Format(exitText));
+            edit.Colour("Blue");
         }
 
         /// <summary>
@@ -216,7 +314,7 @@ namespace very_creative_project_name
         {
             Console.SetCursorPosition(0, 46);
             string attackText = "Press an arrow key for your attack's direction!";
-            Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (attackText.Length / 2)) + "}", attackText));
+            Console.WriteLine(edit.Format(attackText));
             ConsoleKeyInfo key = Console.ReadKey(true);
             int[] attackPos = AttackPosition(key.Key);
             bool xDir = false;
@@ -255,7 +353,7 @@ namespace very_creative_project_name
                             string enemyDeath = "The enemy has now perished!";
                             prop.enemy.RemoveAt(i);
                             Console.SetCursorPosition(0, 47);
-                            Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (enemyDeath.Length / 2)) + "}", enemyDeath));
+                            Console.WriteLine(edit.Format(enemyDeath));
                             stats.canAttack = true;
                         }
                         else

@@ -7,27 +7,37 @@ namespace very_creative_project_name
     class CoreLoop
     {
         //Movement: WASD
-        //Interacts: M = Resize screen, E = Interact with item in room, I = Inventory, Q + arrow = Attack, H = Help
+        //Interacts: E = Interact with item in room, I = Inventory, Q + arrow = Attack, H = Help
         public ConsoleKey[] movementKeys = new ConsoleKey[] { ConsoleKey.W, ConsoleKey.A, ConsoleKey.S, ConsoleKey.D };
-        public ConsoleKey[] interactKeys = new ConsoleKey[] { ConsoleKey.E, ConsoleKey.M, ConsoleKey.I, ConsoleKey.Q, ConsoleKey.H };
+        public ConsoleKey[] interactKeys = new ConsoleKey[] { ConsoleKey.E, ConsoleKey.I, ConsoleKey.Q, ConsoleKey.H };
         public List<Armour> shopItems;
 
+        /// <summary>
+        /// Defines base player information before playing
+        /// </summary>
         public void SetPlayer()
         {
+            stats.firstLoop = false;
             inv.GetArmour();
             stats.canAttack = true;
             stats.health = 10;
+            stats.maxHealth = 10;
             stats.isAlive = true;
             NewShop();
         }
 
+        /// <summary>
+        /// Called on new floors to randomise shop items
+        /// </summary>
         public void NewShop()
         {
-            Shop shop = new Shop();
             shopItems = shop.ShopItems();
             Choice();
         }
 
+        /// <summary>
+        /// Core loop of the game, allows player movement options etc.
+        /// </summary>
         public void Choice()
         {
             Console.SetCursorPosition(0, 45);
@@ -92,6 +102,9 @@ namespace very_creative_project_name
             }
         }
 
+        /// <summary>
+        /// Displays player statistics on screen
+        /// </summary>
         public void DispStats()
         {
             Console.SetCursorPosition(0, 49);

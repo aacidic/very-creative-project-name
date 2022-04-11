@@ -1,5 +1,5 @@
 ﻿ID | ITEMNAME | ITEMDESC | ITEMWEIGHT [0] IF INDEPENDENT | ITEMTYPE | ARMOURHEALTHBOOST [0] IF NOT ARMOUR | BASE PRICE FOR SHOP [0] FOR CANT BUY
-00 | Healing Potion | Heals you for 5 health. | 0.00 | 0 | 0 | 5
+00 | Item Placeholder | The item that holds its place. | 0.00 | 0 | 0 | 0
 01 | Leather Tunic | Seems kind of... blocky? | 15.00 | 1 | 2 | 8
 02 | Iron Shield | A standard shield, seems good. | 13.25 | 1 | 4 | 10
 03 | Bronze Breaker | Break your walls and foes alike! | 12.50 | 1 | 5 | 12

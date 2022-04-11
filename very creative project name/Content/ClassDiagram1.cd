@@ -1,154 +1,182 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="very_creative_project_name.Enemy" Collapsed="true">
-    <Position X="13.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ACAAAgAAAIAAEAAAIAAAAAAAAIAAAAAAAAABAAAAACA=</HashCode>
-      <FileName>Content\Enemy\Enemy.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.Point" Collapsed="true">
-    <Position X="10.25" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
-      <FileName>Content\Enemy\Point.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.ExtraGeneration" Collapsed="true">
-    <Position X="3" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAgCAAAAAAAAEAAAAAAAAAAAAAAAAAAAACQAAAAA=</HashCode>
-      <FileName>Content\Map\Generation\ExtraGeneration.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.Map" Collapsed="true">
-    <Position X="3" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAEAAAAE=</HashCode>
-      <FileName>Content\Map\Generation\Map.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.Properties" Collapsed="true">
-    <Position X="5.25" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAQAAAAAAAACAAAAAQAAAAAAAAAAABAAAAAAAAAAAI=</HashCode>
-      <FileName>Content\Map\Generation\Properties.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.Room" Collapsed="true">
-    <Position X="0.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAAAAQAQAAAABgAAAACAAAAAABgAAAAAAA=</HashCode>
-      <FileName>Content\Map\Generation\Room.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.RoomPaths" Collapsed="true">
-    <Position X="13.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Content\Map\Generation\RoomPaths.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.Seed" Collapsed="true">
-    <Position X="3" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAQAAAAAAAAABAAAAAAAAAAAQAAAAAAAA=</HashCode>
-      <FileName>Content\Map\Generation\Seed.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.Display" Collapsed="true">
-    <Position X="12" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AFAAAABAAAgIAIAAAEAAAAAAAAAAACAAAQAAAAABAAI=</HashCode>
-      <FileName>Content\Map\Display.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.CoreLoop" Collapsed="true">
-    <Position X="6.75" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAgAAAEAAAAAAAA=</HashCode>
-      <FileName>Content\Player\Actions\CoreLoop.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.Interacts" Collapsed="true">
-    <Position X="5.5" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAAADAAAAAAAAAAAAgAAAABAAEAAAA=</HashCode>
-      <FileName>Content\Player\Actions\Interacts.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="very_creative_project_name.Move" Collapsed="true">
-    <Position X="7.75" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAQAAAAA=</HashCode>
-      <FileName>Content\Player\Actions\Move.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="very_creative_project_name.Armour" Collapsed="true">
-    <Position X="2.75" Y="5.75" Width="1.5" />
+    <Position X="9" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAASAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Content\Player\Items\Armour.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="very_creative_project_name.InventoryConvert" Collapsed="true">
-    <Position X="15.5" Y="0.5" Width="1.5" />
+  <Class Name="very_creative_project_name.ConsoleEdits" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAACAAAAACgAAAAAAAAAACAAAAAAAAAAA=</HashCode>
-      <FileName>Content\Player\Items\InventoryConvert.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Content\Text\ConsoleEdits.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.CoreLoop" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAABAAAAAAAAAAAAAACAkAAAEAAAAAAQA=</HashCode>
+      <FileName>Content\Player\Actions\CoreLoop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Data" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAgAAAAAAAAAgAAAAABBAAAAAAAAA=</HashCode>
+      <FileName>Content\Saves\Save.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Display" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFAAAEBAAAgIAYAAAEAAIAAAAAAAACAAAQAAAAABAAI=</HashCode>
+      <FileName>Content\Map\Display.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.DisplayedData" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAARAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Content\Saves\Save.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Enemy" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAgAAAIAAEAAAICAAAAAAAAAAAAAAAIAAAAAAACA=</HashCode>
+      <FileName>Content\Enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.EnemyPoint" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAg=</HashCode>
+      <FileName>Content\Enemy\EnemyPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.ExtraGeneration" Collapsed="true">
+    <Position X="9.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgCAAAAAAAAEAAAAAAAAAIAAAAAAAAAACQAAAAA=</HashCode>
+      <FileName>Content\Map\Generation\ExtraGeneration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Interacts" Collapsed="true">
+    <Position X="16.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAAAAAAAAAAACBAAAAAAAAABgiAAAAAAAIAAAA=</HashCode>
+      <FileName>Content\Player\Actions\Interacts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Inventory" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAACQAAAAAEAAAAAEAAAAACAAAA=</HashCode>
+      <FileName>Content\Player\Items\Inventory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="very_creative_project_name.Item" Collapsed="true">
-    <Position X="1.75" Y="4.5" Width="1.5" />
+    <Position X="10.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAggAAAAAAAAQSAACAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>Content\Player\Items\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="very_creative_project_name.Weapon" Collapsed="true">
-    <Position X="0.5" Y="5.75" Width="1.5" />
+  <Class Name="very_creative_project_name.Map" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Content\Player\Items\Weapon.cs</FileName>
+      <HashCode>AAABAAAAAAAAAAAAAAIAACIAAAAAAAAAAAEAAEAAAAE=</HashCode>
+      <FileName>Content\Map\Generation\Map.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="very_creative_project_name.Stat" Collapsed="true">
-    <Position X="12" Y="2.5" Width="1.5" />
+  <Class Name="very_creative_project_name.Move" Collapsed="true">
+    <Position X="14" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAAAEAAAAAAAAAAAAAACAABgAAAAAAg=</HashCode>
-      <FileName>Content\Player\Stat.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAQAAAAA=</HashCode>
+      <FileName>Content\Player\Actions\Move.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="very_creative_project_name.Save" Collapsed="true">
-    <Position X="15.5" Y="1.5" Width="1.5" />
+  <Class Name="very_creative_project_name.Player" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Content\Saves\Save.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Content\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="very_creative_project_name.ConsoleEdits" Collapsed="true">
-    <Position X="10.25" Y="0.5" Width="1.5" />
+  <Class Name="very_creative_project_name.Properties" Collapsed="true">
+    <Position X="11.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
-      <FileName>Content\Text\ConsoleEdits.cs</FileName>
+      <HashCode>AAAQQAAAAAAACAAAAAQAAAAAAAAAAQBAAAAAAAAAAAI=</HashCode>
+      <FileName>Content\Map\Generation\Properties.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="very_creative_project_name.Ref" Collapsed="true">
-    <Position X="12" Y="1.5" Width="1.5" />
+    <Position X="18.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAQAAAEQACAAAAAAAAAIAAAACAAAAAAAwAAAAI=</HashCode>
+      <HashCode>ACAAMAAQAACEAACgAAAAAAAAIAAAACAAgAABAwAAAAI=</HashCode>
       <FileName>Content\Ref.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="very_creative_project_name.Room" Collapsed="true">
+    <Position X="13.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAQAQAAAABgAAAACAAAAAABhAAAAAAA=</HashCode>
+      <FileName>Content\Map\Generation\Room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.RoomPaths" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Content\Map\Generation\RoomPaths.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Save" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAABAAAgAAACAAAAABgAAAABAAAAAAAA=</HashCode>
+      <FileName>Content\Saves\Save.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Seed" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAQAAAAAAAAABAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Content\Map\Generation\Seed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Shop" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAABAAAAAAA=</HashCode>
+      <FileName>Content\Player\Items\Shop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="very_creative_project_name.StartGame" Collapsed="true">
-    <Position X="10.25" Y="2.5" Width="1.5" />
+    <Position X="20.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Content\StartGame.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="very_creative_project_name.Stat" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAJAAAAAAEAAAEAACAABAAAAAACAABgAAEAAAg=</HashCode>
+      <FileName>Content\Player\Stat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="very_creative_project_name.Weapon" Collapsed="true">
+    <Position X="11.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Content\Player\Items\Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="very_creative_project_name.Type" Collapsed="true">
-    <Position X="10.25" Y="3.75" Width="1.5" />
+    <Position X="18.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAAAAAAAAgAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Content\Player\Items\Item.cs</FileName>

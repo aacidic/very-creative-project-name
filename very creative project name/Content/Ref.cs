@@ -15,6 +15,9 @@ namespace very_creative_project_name
         public static ExtraGeneration extra = new ExtraGeneration();
         public static Enemy enemy = new Enemy();
         public static Inventory inv = new Inventory();
+        public static Shop shop = new Shop();
+        public static Save save = new Save();
+        public static StartGame start = new StartGame();
 
         public static Random r = new Random();
     }

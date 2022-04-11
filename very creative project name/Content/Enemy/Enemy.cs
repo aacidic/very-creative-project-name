@@ -117,7 +117,7 @@ namespace very_creative_project_name
         }
 
         /// <summary>
-        /// Lets the enemy attack - To be implemented!
+        /// Lets the enemy attack
         /// </summary>
         public void Retaliate(EnemyPoint pos, int enemy, int action)
         {

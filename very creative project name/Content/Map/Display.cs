@@ -25,10 +25,10 @@ namespace very_creative_project_name
         /// </summary>
         public void Help(bool inGame)
         {
-            string[] controls = new string[] { "WASD", "E", "M", "H", "I", "Q", "ESC" };
-            string[] ctrlsText = new string[] { "Move around", "Interact with objects", "Resize your map", "Open up the help menu", "Open your inventory", "Attack your enemies", "Save and quit" };
-            string[] icons = new string[] { "¤", "■" };
-            string[] iconText = new string[] { "Loot chest", "An enemy, stay away from it!"};
+            string[] controls = new string[] { "WASD", "E", "H", "I", "Q + Any Arrow Key", "ESC" };
+            string[] ctrlsText = new string[] { "Move around", "Interact with objects", "Open up the help menu", "Open your inventory", "Attack your enemies", "Save and Quit (Only in Inventory)" };
+            string[] icons = new string[] { "¤", "■", "O" };
+            string[] iconText = new string[] { "Loot chest", "An enemy, stay away from it!", "The exit of the floor"};
             if (!inGame)
             {
                 Console.Write("Before you start the game, this is also a quick guide!\nIn-game you will be able to press ");
@@ -36,6 +36,13 @@ namespace very_creative_project_name
                 Console.Write("[H]");
                 edit.Colour("Blue");
                 Console.Write(" for a simplified version of the controls and map elements.\n");
+
+                edit.Colour("White");
+                Console.Write("\nThe goal of this game is to venture as far as you can through the dungeons without dying!" +
+                    "\nYou are able to attack enemies, but they have a chance of retaliating as an attack." +
+                    "\nEnemies can also directly hurt you by walking directly on them." +
+                    "\nYou are freely able to travel to the next floors, but not defeating all enemies will make the game harder." +
+                    "\nThe floors will scale with both loot and enemies so be careful!\n\n\n");
             }
             for (int i = 0; i < controls.Length; i++)
             {
@@ -44,7 +51,7 @@ namespace very_creative_project_name
                 Console.Write(controls[i]);
                 edit.Colour("Blue");
                 Console.Write("] " + ctrlsText[i] + " ");
-                if (i == 3)
+                if (i == 2)
                 {
                     Console.Write("\n");
                 }
@@ -55,6 +62,7 @@ namespace very_creative_project_name
                 Console.Write("[");
                 if (i == 0) { edit.Colour("Cyan"); }
                 else if (i == 1) { edit.Colour("Red"); }
+                else if (i == 2) { edit.Colour("White"); }
                 Console.Write(icons[i]);
                 edit.Colour("Blue");
                 Console.Write("] " + iconText[i] + " ");
@@ -161,7 +169,7 @@ namespace very_creative_project_name
             string enemyHealth = "Enemy has xxxxx health left";
             
             Console.SetCursorPosition(0, 47);
-            Console.WriteLine(string.Format("{0," + ((Console.WindowWidth / 2) + (enemyHealth.Length / 2)) + "}", enemyHealth));
+            Console.WriteLine(edit.Format(enemyHealth));
 
             Console.SetCursorPosition(96, 47);
             edit.Colour("Green");

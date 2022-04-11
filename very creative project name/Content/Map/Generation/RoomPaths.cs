@@ -6,7 +6,7 @@ namespace very_creative_project_name
     class RoomPaths
     {
         /// <summary>
-        /// This is something I had to follow a roguesharp tutorial for, as I couldn't think of anything else!
+        /// This is something I had to follow a roguesharp tutorial for, as I couldn't think of anything else! The reference is below!
         /// </summary>
         /// <see cref="https://roguesharp.wordpress.com/2016/04/03/roguesharp-v3-tutorial-connecting-rooms-with-hallways/"/>
 

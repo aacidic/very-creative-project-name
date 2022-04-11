@@ -2,7 +2,7 @@
 
 namespace very_creative_project_name
 {
-    #region Seed has been depreciated - will try to use seeds in future projects
+    #region Seed has been depreciated - mainly due to limited knowledge of perlin noise generation at this time.
     class Seed
     {
         //Create random seed from tick time and multiplier

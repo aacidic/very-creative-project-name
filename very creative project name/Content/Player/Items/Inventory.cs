@@ -11,9 +11,11 @@ namespace very_creative_project_name
         public List<int> prices = new List<int>();
         string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\")) + @"Content\Text\ItemList.txt";
 
+        /// <summary>
+        /// Gets a list of all armours listed in path ...\very creative project name\Content\Text\ItemList.txt
+        /// </summary>
         public void GetArmour()
         {
-            Armour armour = new Armour();
             int i = 1;
             foreach (string line in File.ReadLines(path))
             {
@@ -28,6 +30,10 @@ namespace very_creative_project_name
             }
         }
 
+        /// <summary>
+        /// Calculated total weight from all armours in path ...\very creative project name\Content\Text\ItemList.txt
+        /// </summary>
+        /// <returns></returns>
         public float TotalWeight()
         {
             float weight = 0;
@@ -38,6 +44,10 @@ namespace very_creative_project_name
             return weight;
         }
 
+        /// <summary>
+        /// Rolls armour based on weight
+        /// </summary>
+        /// <returns>Item player has rolled from opening chest</returns>
         public Item RollArmour()
         {
             float total = TotalWeight();
@@ -52,30 +62,19 @@ namespace very_creative_project_name
                         int pos = stats.inventory.FindIndex(item => item.ID == arm.ID);
                         stats.inventory[pos].Amount += 1;
                         stats.health += arm.HealthBoost;
+                        stats.maxHealth += arm.HealthBoost;
                         return arm;
                     }
                     else
                     {
                         stats.inventory.Add(arm);
                         stats.health += arm.HealthBoost;
+                        stats.maxHealth += arm.HealthBoost;
                         return arm;
                     }
                 }
             }
             return null;
-        }
-
-        public int GetPotions()
-        {
-            int amount = 0;
-            if (stats.inventory.Exists(item => item.ID == 00))
-            {
-                return amount;
-            }
-            else
-            {
-                return 0;
-            }
         }
     }
 }

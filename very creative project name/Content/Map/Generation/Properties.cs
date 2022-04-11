@@ -6,6 +6,7 @@ namespace very_creative_project_name
     class Properties : Map
     {
         public int[][] tileType = new int[44][];
+        public string[] mapString = new string[44];
         public List<EnemyPoint> enemy = new List<EnemyPoint>();
 
         /// <summary>
@@ -56,6 +57,21 @@ namespace very_creative_project_name
         public void SetExtra(int x, int y, int tile)
         {
             tileType[y][x] = tile;
+        }
+
+        /// <summary>
+        /// Converts the string map from save files to tiletype.
+        /// </summary>
+        public void ConvertMap()
+        {
+            for (int y = 0; y < tileType.Length; y++)
+            {
+                char[] line = mapString[y].ToCharArray();
+                for (int x = 0; x < tileType[y].Length; x++)
+                {
+                    tileType[y][x] = int.Parse(line[x].ToString());
+                }
+            }
         }
     }
 }

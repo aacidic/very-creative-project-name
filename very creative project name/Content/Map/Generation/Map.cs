@@ -85,7 +85,6 @@ namespace very_creative_project_name
             {
                 //Starts gameplay sequence
                 core.SetPlayer();
-                stats.firstLoop = false;
             }
             else
             {
